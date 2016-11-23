@@ -8,13 +8,32 @@
 -- ============================================================
 
 
-drop table ROLE cascade constraints;
+drop table RECETTE cascade constraints;
 
-drop table FILM cascade constraints;
+drop table MENU cascade constraints;
 
-drop table REALISATEUR cascade constraints;
+drop table INTERNAUTE cascade constraints;
 
-drop table ACTEUR cascade constraints;
+drop table MODIFICATION cascade constraints;
+
+drop table COMMENTAIRE cascade constraints;
+
+drop table NOTE cascade constraints;
+
+drop table INGREDIENT cascade constraints;
+
+drop table CARACTERISTIQUE_NUTRITIONNELLE cascade constraints;
+
+drop table ACTION cascade constraints;
+
+drop table SOUMISSION cascade constraints;
+
+drop table CONTENU cascade constraints;
+
+drop table COMPOSITION cascade constraints;
+
+drop table DEFINITION cascade constraints;
+
 
 -- ============================================================
 --   Table : RECETTE                                           
@@ -130,7 +149,7 @@ create table CONTENU
     NUMERO_RECETTE          NUMBER(3)              not null,
     NUMERO_INGREDIENT       NUMBER(3)              not null,
     QUANTITE                NUMBER(3)                       ,
-    UNITE                   CHAR(20)
+    UNITE                   CHAR(20)               not null,
     constraint pk_contenu primary key (NUMERO_RECETTE,NUMERO_INGREDIENT)
 );
 -- ============================================================
@@ -153,26 +172,50 @@ create table DEFINITION
     constraint pk_definition primary key (NUMERO_INGREDIENT,NUMERO_CARACTERISTIQUE)
 );
 
-alter table RECETTE
-    add constraint fk1_recette foreign key (NUMERO_RECETTE)
-       references NOTE (NUMERO_RECETTE);
-    add constraint fk2_recette foreign key (NUMERO_RECETTE)
-       references SOUMISSION (NUMERO_RECETTE);
-    add constraint fk3_recette foreign key (NUMERO_RECETTE)
-       references COMMENTAIRE (NUMERO_RECETTE);
-    add constraint fk3_recette foreign key (NUMERO_RECETTE)
-       references CONTENU (NUMERO_RECETTE);
-    
 
-alter table INTERNAUTE
-    add constraint fk1_internaute foreign key (NUMERO_INTERNAUTE)
-       references NOTE (NUMERO_ACTEUR);
-    add constraint fk2_internaute foreign key (NUMERO_INTERNAUTE)
-       references COMMENTAIRE (NUMERO_ACTEUR);
-    add constraint fk3_internaute foreign key (NUMERO_INTERNAUTE)
-       references MENU (NUMERO_ACTEUR);
+alter table ACTION
+    add constraint fk1_action foreign key (NUMERO_INTERNAUTE)
+       references INTERNAUTE (NUMERO_INTERNAUTE)
+    add constraint fk2_action foreign key (NUMERO_MODIFICATION)
+       references MODIFICATION (NUMERO_MODIFICATION);
 
-alter table MODIFICATION
-    add constraint fk1_modification foreign key (NUMERO_FILM)
-       references ACTION (NUMERO_FILM);
+alter table NOTE
+    add constraint fk1_note foreign key (NUMERO_INTERNAUTE)
+       references INTERNAUTE (NUMERO_INTERNAUTE)
+    add constraint fk2_note foreign key (NUMERO_RECETTE)
+       references RECETTE (NUMERO_RECETTE);
+
+alter table SOUMISSION
+    add constraint fk1_soumission foreign key (NUMERO_MODIFICATION)
+       references MODIFICATION (NUMERO_MODIFICATION)
+    add constraint fk2_soumission foreign key (NUMERO_RECETTE)
+       references RECETTE (NUMERO_RECETTE);
+       
+alter table COMMENTAIRE
+    add constraint fk1_commentaire foreign key (NUMERO_INTERNAUTE)
+       references INTERNAUTE (NUMERO_INTERNAUTE)
+    add constraint fk2_commentaire foreign key (NUMERO_RECETTE)
+       references RECETTE (NUMERO_RECETTE);
+
+alter table MENU
+    add constraint fk1_menu foreign key (NUMERO_INTERNAUTE)
+       references INTERNAUTE (NUMERO_INTERNAUTE);
+
+alter table COMPOSITION
+    add constraint fk1_composition foreign key (NUMERO_RECETTE)
+       references RECETTE (NUMERO_RECETTE)
+    add constraint fk2_composition foreign key (NUMERO_MENU)
+       references MENU (NUMERO_MENU);
+       
+alter table DEFINITION	
+    add constraint fk1_definition foreign key (NUMERO_INGREDIENT)
+       references INGREDIENT (NUMERO_INGREDIENT)
+    add constraint fk2_definition foreign key (NUMERO_CARACTERISTIQUE)
+       references CARACTERISTIQUE_NUTRITIONNELLE (NUMERO_CARACTERISTIQUE);
+             
+alter table CONTENU
+	add constraint fk1_contenu foreign key (NUMERO_RECETTE)
+       references RECETTE (NUMERO_RECETTE)
+    add constraint fk2_contenu foreign key (NUMERO_INGREDIENT)
+       references INGREDIENT (NUMERO_INGREDIENT);
 
