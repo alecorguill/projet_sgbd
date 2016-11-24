@@ -76,7 +76,7 @@ create table INTERNAUTE
 create table MODIFICATION
 (
     NUMERO_MODIFICATION                  NUMBER(3)              not null,
-    DESCRIPTION_MODIFICATION             CHAR(20)              not null,
+    DESCRIPTION_MODIFICATION             CHAR(20)               not null,
     DATE_MODIFICATION                    DATE                       ,
     constraint pk_modification primary key (NUMERO_MODIFICATION)
 );
@@ -89,7 +89,7 @@ create table COMMENTAIRE
     NUMERO_COMMENTAIRE              NUMBER(3)              not null,
     NUMERO_INTERNAUTE               NUMBER(3)              not null,
     NUMERO_RECETTE                  NUMBER(3)              not null,
-    DESCRIPTION_COMMENTAIRE         CHAR(20)              not null,
+    DESCRIPTION_COMMENTAIRE         CHAR(20)               not null,
     constraint pk_commentaire primary key (NUMERO_COMMENTAIRE)
 );
 
@@ -214,7 +214,7 @@ alter table DEFINITION
        references CARACTERISTIQUE_NUTRITIONNELLE (NUMERO_CARACTERISTIQUE);
              
 alter table CONTENU
-	add constraint fk1_contenu foreign key (NUMERO_RECETTE)
+    add constraint fk1_contenu foreign key (NUMERO_RECETTE)
        references RECETTE (NUMERO_RECETTE)
     add constraint fk2_contenu foreign key (NUMERO_INGREDIENT)
        references INGREDIENT (NUMERO_INGREDIENT);
