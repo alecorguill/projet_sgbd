@@ -75,8 +75,8 @@ create table INTERNAUTE
 -- ============================================================
 create table MODIFICATION
 (
-    NUMERO_MODIFICATION                  NUMBER(3)      ot null,
-    DESCRIPTION_MODIFICATION             CHAR(20)       ot null,
+    NUMERO_MODIFICATION                  NUMBER(3)      not null,
+    DESCRIPTION_MODIFICATION             CHAR(20)       not null,
     DATE_MODIFICATION                    DATE                  ,
     constraint pk_modification primary key (NUMERO_MODIFICATION)
 );
@@ -175,47 +175,47 @@ create table DEFINITION
 
 alter table ACTION
     add constraint fk1_action foreign key (NUMERO_INTERNAUTE)
-       references INTERNAUTE (NUMERO_INTERNAUTE)
+       references INTERNAUTE (NUMERO_INTERNAUTE) on delete cascade
     add constraint fk2_action foreign key (NUMERO_MODIFICATION)
-       references MODIFICATION (NUMERO_MODIFICATION);
+       references MODIFICATION (NUMERO_MODIFICATION) on delete cascade;
 
 alter table NOTE
     add constraint fk1_note foreign key (NUMERO_INTERNAUTE)
-       references INTERNAUTE (NUMERO_INTERNAUTE)
+       references INTERNAUTE (NUMERO_INTERNAUTE) on delete cascade
     add constraint fk2_note foreign key (NUMERO_RECETTE)
-       references RECETTE (NUMERO_RECETTE);
+       references RECETTE (NUMERO_RECETTE) on delete cascade;
 
 alter table SOUMISSION
     add constraint fk1_soumission foreign key (NUMERO_MODIFICATION)
-       references MODIFICATION (NUMERO_MODIFICATION)
+       references MODIFICATION (NUMERO_MODIFICATION) on delete cascade
     add constraint fk2_soumission foreign key (NUMERO_RECETTE)
-       references RECETTE (NUMERO_RECETTE);
+       references RECETTE (NUMERO_RECETTE) on delete cascade;
        
 alter table COMMENTAIRE
     add constraint fk1_commentaire foreign key (NUMERO_INTERNAUTE)
-       references INTERNAUTE (NUMERO_INTERNAUTE)
+       references INTERNAUTE (NUMERO_INTERNAUTE) on delete cascade
     add constraint fk2_commentaire foreign key (NUMERO_RECETTE)
-       references RECETTE (NUMERO_RECETTE);
+       references RECETTE (NUMERO_RECETTE) on delete cascade;
 
 alter table MENU
     add constraint fk1_menu foreign key (NUMERO_INTERNAUTE)
-       references INTERNAUTE (NUMERO_INTERNAUTE);
+       references INTERNAUTE (NUMERO_INTERNAUTE) on delete cascade;
 
 alter table COMPOSITION
     add constraint fk1_composition foreign key (NUMERO_RECETTE)
-       references RECETTE (NUMERO_RECETTE)
+       references RECETTE (NUMERO_RECETTE) on delete cascade
     add constraint fk2_composition foreign key (NUMERO_MENU)
-       references MENU (NUMERO_MENU);
+       references MENU (NUMERO_MENU) on delete cascade;
        
 alter table DEFINITION	
     add constraint fk1_definition foreign key (NUMERO_INGREDIENT)
-       references INGREDIENT (NUMERO_INGREDIENT)
+       references INGREDIENT (NUMERO_INGREDIENT) on delete cascade
     add constraint fk2_definition foreign key (NUMERO_CARACTERISTIQUE)
-       references CARACTERISTIQUE_NUTRITIONNELLE (NUMERO_CARACTERISTIQUE);
+       references CARACTERISTIQUE_NUTRITIONNELLE (NUMERO_CARACTERISTIQUE) on delete cascade;
              
 alter table CONTENU
     add constraint fk1_contenu foreign key (NUMERO_RECETTE)
-       references RECETTE (NUMERO_RECETTE)
+       references RECETTE (NUMERO_RECETTE) on delete cascade
     add constraint fk2_contenu foreign key (NUMERO_INGREDIENT)
-       references INGREDIENT (NUMERO_INGREDIENT);
+       references INGREDIENT (NUMERO_INGREDIENT) on delete cascade;
 

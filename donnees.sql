@@ -2,7 +2,11 @@
 --    suppression des donnees
 -- ============================================================
 
-delete from RECETTE;
+
+delete from RECETTE ;
+delete from INTERNAUTE ;
+delete from MENU ;
+delete from COMPOSITION ;
 
 commit ;
 
@@ -21,6 +25,11 @@ insert into RECETTE values (  6 , 'Pates au beurre', '24-NOV-16', 2, 10, 2);
 insert into RECETTE values (  7 , 'Foret noire', '24-NOV-16', 50, 0, 2);
 insert into RECETTE values (  8 , 'Crepes', '24-NOV-16', 20, 10, 6);
 
+insert into INTERNAUTE values ( 1 , 'ilestchaumartin');
+insert into INTERNAUTE values ( 2 , 'jroullaid');
+insert into INTERNAUTE values ( 3 , 'adeGorguill');
+
+
 insert into MENU values ( 1, 'Repas chez Mamie', 2);
 insert into MENU values ( 2, 'Foot Pizza Biere', 1);
 insert into MENU values ( 3, 'Basse Ville', 3);
@@ -32,7 +41,5 @@ insert into COMPOSITION values ( 8, 2 );
 insert into COMPOSITION values ( 1, 3 );
 insert into COMPOSITION values ( 8, 3 );
 
-insert into INTERNAUTE values ( 1 , 'lchaumartin');
-insert into INTERNAUTE values ( 2 , 'jroullaid');
-insert into INTERNAUTE values ( 3 , 'adeGorguill');
+
 
