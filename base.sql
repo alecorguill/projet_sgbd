@@ -4,7 +4,6 @@
 --   Date de creation :  22/11/16  17:34                      
 -- ============================================================
 
-
 -- ============================================================
 
 
@@ -42,10 +41,10 @@ create table RECETTE
 (
     NUMERO_RECETTE              NUMBER(3)              not null,
     NOM_RECETTE                 CHAR(20)               not null,
-    DATE_CREATION_RECETTE       DATE                       ,
-    TEMPS_PREPARATION_RECETTE   NUMBER(3)                       ,
-    TEMPS_CUISSON_RECETTE       NUMBER(3)                           ,
-    NOMBRE_DE_PERSONNES         NUMBER(3),        
+    DATE_CREATION_RECETTE       DATE                           ,
+    TEMPS_PREPARATION_RECETTE   NUMBER(3)                      ,
+    TEMPS_CUISSON_RECETTE       NUMBER(3)                      ,
+    NOMBRE_DE_PERSONNES         NUMBER(3)                      ,        
     constraint pk_recette primary key (NUMERO_RECETTE)
 );
 
@@ -54,9 +53,9 @@ create table RECETTE
 -- ============================================================
 create table MENU
 (
-    NUMERO_MENU              NUMBER(3)              not null,
-    NOM_MENU                 CHAR(20)               not null,
-    NUMERO_INTERNAUTE        NUMBER(3)                       ,
+    NUMERO_MENU              NUMBER(3)                 not null,
+    NOM_MENU                 CHAR(20)                  not null,
+    NUMERO_INTERNAUTE        NUMBER(3)                         ,
     constraint pk_menu primary key (NUMERO_MENU)
 );
 
@@ -65,8 +64,8 @@ create table MENU
 -- ============================================================
 create table INTERNAUTE
 (
-    NUMERO_INTERNAUTE          NUMBER(3)              not null,
-    PSEUDO                     CHAR(20)               not null,
+    NUMERO_INTERNAUTE          NUMBER(3)               not null,
+    PSEUDO                     CHAR(20)                not null,
     constraint pk_internaute primary key (NUMERO_INTERNAUTE)
 );
 
@@ -75,9 +74,9 @@ create table INTERNAUTE
 -- ============================================================
 create table MODIFICATION
 (
-    NUMERO_MODIFICATION                  NUMBER(3)              not null,
-    DESCRIPTION_MODIFICATION             CHAR(20)              not null,
-    DATE_MODIFICATION                    DATE                       ,
+    NUMERO_MODIFICATION                  NUMBER(3)     not null,
+    DESCRIPTION_MODIFICATION             CHAR(20)      not null,
+    DATE_MODIFICATION                    DATE                  ,
     constraint pk_modification primary key (NUMERO_MODIFICATION)
 );
 
@@ -86,10 +85,10 @@ create table MODIFICATION
 -- ============================================================
 create table COMMENTAIRE
 (
-    NUMERO_COMMENTAIRE              NUMBER(3)              not null,
-    NUMERO_INTERNAUTE               NUMBER(3)              not null,
-    NUMERO_RECETTE                  NUMBER(3)              not null,
-    DESCRIPTION_COMMENTAIRE         CHAR(20)              not null,
+    NUMERO_COMMENTAIRE              NUMBER(3)          not null,
+    NUMERO_INTERNAUTE               NUMBER(3)          not null,
+    NUMERO_RECETTE                  NUMBER(3)          not null,
+    DESCRIPTION_COMMENTAIRE         CHAR(20)           not null,
     constraint pk_commentaire primary key (NUMERO_COMMENTAIRE)
 );
 
@@ -98,9 +97,9 @@ create table COMMENTAIRE
 -- ============================================================
 create table NOTE
 (
-    VALEUR_NOTE                  NUMBER(3)              not null,
-    NUMERO_RECETTE               NUMBER(3)              not null,
-    NUMERO_INTERNAUTE            NUMBER(3)              not null,
+    VALEUR_NOTE                  NUMBER(3)             not null,
+    NUMERO_RECETTE               NUMBER(3)             not null,
+    NUMERO_INTERNAUTE            NUMBER(3)             not null,
     constraint pk_note primary key (NUMERO_INTERNAUTE,NUMERO_RECETTE)
 );
 
@@ -109,8 +108,8 @@ create table NOTE
 -- ============================================================
 create table INGREDIENT
 (
-    NUMERO_INGREDIENT          NUMBER(3)              not null,
-    NOM_INGREDIENT             CHAR(20)              not null,
+    NUMERO_INGREDIENT          NUMBER(3)               not null,
+    NOM_INGREDIENT             CHAR(20)                not null,
     constraint pk_ingredient primary key (NUMERO_INGREDIENT)
 );
 
@@ -119,8 +118,8 @@ create table INGREDIENT
 -- ============================================================
 create table CARACTERISTIQUE_NUTRITIONNELLE 
 (
-    NUMERO_CARACTERISTIQUE          NUMBER(3)              not null,
-    NOM_CARACTERISTIQUE             CHAR(20)                not null,
+    NUMERO_CARACTERISTIQUE          NUMBER(3)          not null,
+    NOM_CARACTERISTIQUE             CHAR(20)           not null,
     constraint pk_caracteristique primary key (NUMERO_CARACTERISTIQUE)
 );
 -- ============================================================
@@ -128,8 +127,8 @@ create table CARACTERISTIQUE_NUTRITIONNELLE
 -- ============================================================
 create table ACTION
 (
-    NUMERO_INTERNAUTE               NUMBER(3)              not null,
-    NUMERO_MODIFICATION             NUMBER(3)              not null,
+    NUMERO_INTERNAUTE               NUMBER(3)          not null,
+    NUMERO_MODIFICATION             NUMBER(3)          not null,
     constraint pk_action primary key (NUMERO_INTERNAUTE,NUMERO_MODIFICATION)
 );
 -- ============================================================
@@ -137,8 +136,8 @@ create table ACTION
 -- ============================================================
 create table SOUMISSION
 (
-    NUMERO_MODIFICATION        NUMBER(3)              not null,
-    NUMERO_RECETTE             NUMBER(3)              not null,
+    NUMERO_MODIFICATION        NUMBER(3)               not null,
+    NUMERO_RECETTE             NUMBER(3)               not null,
     constraint pk_soumission primary key (NUMERO_MODIFICATION,NUMERO_RECETTE)
 );
 -- ============================================================
@@ -146,10 +145,10 @@ create table SOUMISSION
 -- ============================================================
 create table CONTENU
 (
-    NUMERO_RECETTE          NUMBER(3)              not null,
-    NUMERO_INGREDIENT       NUMBER(3)              not null,
-    QUANTITE                NUMBER(3)                       ,
-    UNITE                   CHAR(20)               not null,
+    NUMERO_RECETTE          NUMBER(3)                  not null,
+    NUMERO_INGREDIENT       NUMBER(3)                  not null,
+    QUANTITE                NUMBER(3)                          ,
+    UNITE                   CHAR(20)                   not null,
     constraint pk_contenu primary key (NUMERO_RECETTE,NUMERO_INGREDIENT)
 );
 -- ============================================================
@@ -157,8 +156,8 @@ create table CONTENU
 -- ============================================================
 create table COMPOSITION
 (
-    NUMERO_RECETTE               NUMBER(3)              not null,
-    NUMERO_MENU                  NUMBER(3)              not null,
+    NUMERO_RECETTE               NUMBER(3)             not null,
+    NUMERO_MENU                  NUMBER(3)             not null,
     constraint pk_composition primary key (NUMERO_RECETTE,NUMERO_MENU)
 );
 
@@ -167,8 +166,8 @@ create table COMPOSITION
 -- ============================================================
 create table DEFINITION
 (
-    NUMERO_INGREDIENT               NUMBER(3)              not null,
-    NUMERO_CARACTERISTIQUE          NUMBER(3)              not null,
+    NUMERO_INGREDIENT               NUMBER(3)          not null,
+    NUMERO_CARACTERISTIQUE          NUMBER(3)          not null,
     constraint pk_definition primary key (NUMERO_INGREDIENT,NUMERO_CARACTERISTIQUE)
 );
 

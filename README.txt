@@ -9,7 +9,7 @@
   - peuplement (données)
   - suppression
   - consultation / statistiques
-  - mise à jour
+  - mise à jour (ajout, modification, suppression)
 
 * création: -> Quelques fonctionnalités d'Oracle sur moodle
   - auto-increment
