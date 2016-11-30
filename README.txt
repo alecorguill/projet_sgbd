@@ -1,4 +1,4 @@
-* Documentation d'installation et de test, décrire les technologies utilisées
+*** Documentation d'installation et de test, décrire les technologies utilisées
 
 * Graphisme moins (pas ou peu) important 
   -> framework déconseillé
