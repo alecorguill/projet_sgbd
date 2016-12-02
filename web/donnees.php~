@@ -1,0 +1,38 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Les recettes gourmandes - Données de la base</title>
+  </head>
+  <body>
+    <h1>Les recettes gourmandes</h1>
+
+    <?php
+       $base = mysql_connect ('localhost', 'lchaumartin', 'vivi86ga');  
+       mysql_select_db ('lchaumartin', $base) ;
+
+       $sql = 'SELECT * FROM INTERNAUTE;';
+       mysql_query ($sql) or die ('Erreur SQL !'.$sql.'<br/>'.mysql_error());
+       ?>
+    
+    <table>
+      <tr>
+        <th>Numéro Internaute</th>
+        <th>Pseudo</th>
+      </tr>
+      <?php//On affiche les lignes du tableau une à une à l'aide d'une boucle
+		while($donnees = mysql_fetch_array($reponse))
+		{
+		?>
+      <tr>
+        <th><?php echo $donnees['NUMERO_INTERNAUTE'];?></th>
+        <th><?php echo $donnees['PSEUDO'];?></th>
+      </tr>
+      </table>
+      <?php
+         } //fin de la boucle, le tableau contient toute la BDD
+         mysql_close(); //deconnection de mysql
+         ?>
+
+</div>
+</body>
+</html>
