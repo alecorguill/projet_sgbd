@@ -27,6 +27,18 @@
      	 mysql_close();
 	 }
 	 ?>
+
+      <h2>Ajouter une recette :</h2>
+      <form name="add_recette" method="post" action="form.php">
+	Nom de recette : <input type="text" name="NOM_RECETTE"/> <br/>
+	Temps de préparation (en min) : <input type="text" name="TEMPS_PREPARATION_RECETTE"/> <br/>
+	Temps de cuisson (en min) : <input type="text" name="TEMPS_CUISSON_RECETTE"/> <br/>
+	Nombre de personne(s) : <input type="text" name="NOMBRE_DE_PERSONNES"/> <br/>
+	<input type="submit" name="valider_recette" value="OK"/>	     
+      </form>
+      
+      <?php include("ajoutrecette.php"); ?>
+
     </div>
   </body>
 </html>
