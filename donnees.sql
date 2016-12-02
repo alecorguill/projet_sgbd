@@ -26,6 +26,8 @@ insert into RECETTE values (  7 , 'Foret noire', '24-NOV-16', 50, 0, 2);
 insert into RECETTE values (  8 , 'Crepes', '24-NOV-16', 20, 10, 6);
 
 insert into INTERNAUTE values ( 1 , 'ilestchaumartin');
+insert into INTERNAUTE values ( 4 , 'chaumartindenis');
+insert into INTERNAUTE values ( 5 , 'denis');
 insert into INTERNAUTE values ( 2 , 'jroullaid');
 insert into INTERNAUTE values ( 3 , 'adeGorguill');
 

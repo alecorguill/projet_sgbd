@@ -1,5 +1,6 @@
 <html>
   <head>
+    <meta charset="utf-8">
     <title>Les recettes gourmandes - Inscription</title>
   </head>
   <body>
