@@ -1,0 +1,26 @@
+<html>
+  <head>
+    <title>Les recettes gourmandes - Inscription</title>
+  </head>
+  <body>
+    <h1>Les recettes gourmandes</h1>
+    <div>
+      <h1>Inscrivez-vous !</h1>
+      <h2>Entrez les données demandées :</h2>
+      <form name="inscription" method="post" action="form.php">
+	Entrez un pseudo : <input type="text" name="pseudo"/> <br/>
+	<input type="submit" name="valider" value="OK"/>	     
+      </form>
+      <?php
+	 if (isset ($_POST['valider'])){	
+	 $pseudo=$_POST['pseudo'];
+	 connectBase();
+	 $cur_nb=100;
+	 $sql = 'insert into INTERNAUTE values("'.$cur_nb.'","'.$pseudo.'")';
+     	 mysql_query ($sql) or die ('Erreur SQL !'.$sql.'<br />'.mysql_error());
+     	 mysql_close();
+	 }
+	 ?>
+    </div>
+  </body>
+</html>
