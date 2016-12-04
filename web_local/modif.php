@@ -1,10 +1,11 @@
+<?php session_start(); ?>
+
 <html>
 <head>
   <meta charset="utf-8">
   <title>Les recettes gourmandes - Modifier</title>
 </head>
 <body>
-
     <?php $name=$_GET['toto'];
           $cur_nb=$_GET['titi'];?>
     <h1>Modification de la recette <?php echo$name;?></h1>
@@ -14,6 +15,15 @@
     Temps de préparation (en min) : <input type="text" name="TEMPS_PREPARATION_RECETTE"/> <br/>
     Temps de cuisson (en min) : <input type="text" name="TEMPS_CUISSON_RECETTE"/> <br/>
     Nombre de personne(s) : <input type="text" name="NOMBRE_DE_PERSONNES"/> <br/>
+    Note :  <select name="NOTE">
+    <option value="0">Choose a note</option>
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+    </select><br/>
+    Commentaire : <input type="text" name="COMMENTAIRE"/> <br/>
+    Description : <input type="text" name="DESCRIPTION"/> <br/>
+
     <input type="submit" name="valider_modif" value="OK"/>       
   </form>
 
@@ -62,6 +72,44 @@
       $nb_p=$nbp[0];
    } else 
       $nb_p=(int) $_POST['NOMBRE_DE_PERSONNES'];
+
+   $note=(int) $_POST['NOTE'];
+   if($note == 0)
+   {
+      $note=mysql_query('SELECT VALEUR_NOTE from RECETTE R, NOTE N WHERE R.NUMERO_RECETTE=N.NUMERO_RECETTE;');
+      $note=mysql_fetch_array($note);
+      $note=$note[0];
+   }
+
+   mysql_query('UPDATE NOTE SET VALEUR_NOTE='.$note.' WHERE NUMERO_RECETTE='.$cur_nb[0].'') or die ('Erreur SQL !'.$sql.'<br/>'.mysql_error());
+
+   $comment=$_POST['COMMENTAIRE'];
+   if(!isset($comment) || trim($comment) == '')
+   {
+      $comment=mysql_query('SELECT DESCRIPTION_COMMENTAIRE from COMMENTAIRE WHERE NUMERO_RECETTE='.$cur_nb[0].';');
+      $comment = mysql_fetch_array($comment);
+      $comment=$comment[0];
+   } else 
+      $comment=mysql_real_escape_string($_POST['COMMENTAIRE']);
+
+   $nb_comment=mysql_fetch_array(mysql_query('SELECT MAX(NUMERO_COMMENTAIRE) FROM COMMENTAIRE;'));
+   $nb_comment=$nb_comment[0]++;
+
+   mysql_query('UPDATE COMMENTAIRE SET DESCRIPTION_COMMENTAIRE="'.$comment.'" WHERE NUMERO_RECETTE='.$cur_nb[0].';') or die ('Erreur SQL !'.$sql.'<br/>'.mysql_error());
+
+
+   //$desc=$_POST['DESCRIPTION'];
+   //if(!isset($desc) || trim($desc) == '')
+   //{
+     // $desc=mysql_query('SELECT NOMBRE_DE_PERSONNES from RECETTE WHERE NUMERO_RECETTE='.$cur_nb[0].';');
+      //$desc = mysql_fetch_array($desc);
+      //$desc=$desc[0];
+   //} else 
+     // $desc=mysql_real_escape_string($_POST['NOMBRE_DE_PERSONNES']);
+
+
+
+
 
    //Ajout de la recette
    $sql = 'UPDATE RECETTE set  NOM_RECETTE="'.$nom.'", TEMPS_PREPARATION_RECETTE='.$temps_prep.', TEMPS_CUISSON_RECETTE='.$temps_cuis.', NOMBRE_DE_PERSONNES='.$nb_p.' WHERE NUMERO_RECETTE='.$cur_nb[0].';';

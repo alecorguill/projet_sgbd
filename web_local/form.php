@@ -1,3 +1,6 @@
+<?php session_start(); ?>
+
+
 <html>
   <head>
     <meta charset="utf-8">
@@ -18,6 +21,7 @@
  
 	 if (isset ($_POST['valider'])){	
 	 $pseudo=$_POST['pseudo'];
+   //$_SESSION['pseudo'] = $pseudo;
 	 $nb_sql = 'SELECT count(*) FROM internaute;';
 	 $result = mysql_query($nb_sql);
    if (!$result) {
