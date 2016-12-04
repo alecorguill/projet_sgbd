@@ -38,9 +38,32 @@
 	 $nom=mysql_real_escape_string($_POST['NOM_RECETTE']);
 	 $date=date('Y-n-d');
 	 $date=mysql_real_escape_string($date);
-	 $temps_prep=(int) $_POST['TEMPS_PREPARATION_RECETTE'];
-	 $temps_cuis=(int) $_POST['TEMPS_CUISSON_RECETTE'];
-	 $nb_p=(int) $_POST['NOMBRE_DE_PERSONNES'];
+
+	 $temps_prep=$_POST['TEMPS_PREPARATION_RECETTE'];
+	 if(!isset($temps_prep) || trim($temps_prep) == '')
+	 {
+	 	echo "You did not fill out the required fields.";
+	 	exit;
+	 } else 
+	 		 $temps_prep=(int) $_POST['TEMPS_PREPARATION_RECETTE'];
+
+
+
+	 $temps_cuis=$_POST['TEMPS_CUISSON_RECETTE'];
+	 if(!isset($temps_cuis) || trim($temps_cuis) == '') {
+	 	echo "You did not fill out the required fields.";
+	 	exit;
+	 } else
+		$temps_cuis=(int) $_POST['TEMPS_CUISSON_RECETTE'];
+
+	 $nb_p= $_POST['NOMBRE_DE_PERSONNES'];
+	 if(!isset($nb_p) || trim($nb_p) == '') {
+	 	echo "You did not fill out the required fields.";
+	 	exit;
+	 } else
+	 	$nb_p=(int) $_POST['NOMBRE_DE_PERSONNES'];
+
+
 
 	 $max_nb_recette = 'SELECT MAX(NUMERO_RECETTE) FROM RECETTE;';
 	 $result = mysql_query($max_nb_recette);
