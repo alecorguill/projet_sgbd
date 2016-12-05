@@ -17,68 +17,40 @@
 
 			<?php
 
-			if (isset ($_POST['valider_recette'])){
+			if (isset ($_POST['valider_menu'])){
 
 				$base = mysql_connect ('localhost', 'root', '')or die("Impossible de se connecter : " . mysql_error());;  
 				mysql_select_db ('recettes', $base) ;
 
-				$nb_sql = 'SELECT MAX(NOM_RECETTE) FROM recette;';
+				$nb_sql = 'SELECT MAX(Numero_menu) FROM menu;';
 				$result = mysql_query($nb_sql);
 				if (!$result) {
 					die('Requête invalide : ' . mysql_error());
 				}
-   //mysql_query ($result) or die ('Erreur SQL !'.$result.'<br/>'.mysql_error());
-
+   //mysql_query ($result) or die ('Erreur SQL !'.$result.'<br/>'.mysql_error())
 				$cur_nb = mysql_fetch_array($result);
 
 				$cur_nb[0]++;
 
 	 //Affectation des valeurs donner par le client
-				$nom=mysql_real_escape_string($_POST['NOM_RECETTE']);
-		        $nb_sql = 'SELECT NUMERO_recette FROM recette where NOM_recette="'.$nom.'";';
-		        $result = mysql_query($nb_sql);
+				$nom=mysql_real_escape_string($_POST['NOM_MENUS']);
+				$numero_internaute=$_SESSION['id'];
+		        $nb_sql = 'SELECT NUMERO_menu FROM menu where NOM_MENU="'.$nom.'" and numero_internaute='.$numero_internaute.';';
+		        $result = mysql_query($nb_sql) or die ('Erreur SQL !'.$nb_sql.'<br/>'.mysql_error());
 		        if(mysql_num_rows($result) > 0){
-		        	echo("cette recette existe deja");
+		        	echo("Vous avez deja ajouté ce menu");
 		        	exit();
 		        }
-				$date=date('Y-n-d');
-				$date=mysql_real_escape_string($date);
 
-				$temps_prep=$_POST['TEMPS_PREPARATION_RECETTE'];
-				if(!isset($temps_prep) || trim($temps_prep) == '')
-				{
-					echo "You did not fill out the required fields.";
-					exit;
-				} else 
-				$temps_prep=(int) $_POST['TEMPS_PREPARATION_RECETTE'];
-
-
-
-				$temps_cuis=$_POST['TEMPS_CUISSON_RECETTE'];
-				if(!isset($temps_cuis) || trim($temps_cuis) == '') {
-					echo "You did not fill out the required fields.";
-					exit;
-				} else
-				$temps_cuis=(int) $_POST['TEMPS_CUISSON_RECETTE'];
-
-				$nb_p= $_POST['NOMBRE_DE_PERSONNES'];
-				if(!isset($nb_p) || trim($nb_p) == '') {
-					echo "You did not fill out the required fields.";
-					exit;
-				} else
-				$nb_p=(int) $_POST['NOMBRE_DE_PERSONNES'];
-
-
-
-				$max_nb_recette = 'SELECT MAX(NUMERO_RECETTE) FROM RECETTE;';
-				$result = mysql_query($max_nb_recette);
+				$max_nb_menu = 'SELECT MAX(NUMERO_menu) FROM menu;';
+				$result = mysql_query($max_nb_menu);
 				$cur_nb = mysql_fetch_array($result);
 				$cur_nb[0]++;
 	 //Ajout de la recette
-				$sql = 'insert into RECETTE(NUMERO_RECETTE,NOM_RECETTE,DATE_CREATION_RECETTE,TEMPS_PREPARATION_RECETTE,TEMPS_CUISSON_RECETTE,NOMBRE_DE_PERSONNES) values ('.$cur_nb[0].', "'.$nom.'", "'.$date.'", '.$temps_prep.', '.$temps_cuis.', '.$nb_p.')';
+				$sql = 'insert into menu(numero_menu, nom_menu, numero_internaute) values ('.$cur_nb[0].', "'.$nom.'", '.$numero_internaute.')';
 				mysql_query ($sql) or die ('Erreur SQL !'.$sql.'<br/>'.mysql_error());
-				$nb_ing = $_POST['nb_ingredient'];
-				header("Location: ajouteringredientrecette.php?nb_ing=$nb_ing&nom_recette=$nom");
+				$nb_rec = $_POST['nb_recette'];
+				header("Location: ajouterrecettemenu.php?nb_rec=$nb_rec&nom_menu=$nom");
 				mysql_close();
 			}			
 
