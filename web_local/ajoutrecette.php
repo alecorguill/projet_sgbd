@@ -24,7 +24,7 @@
 				$base = mysql_connect ('localhost', 'root', '')or die("Impossible de se connecter : " . mysql_error());;  
 				mysql_select_db ('recettes', $base) ;
 
-				$nb_sql = 'SELECT MAX(NOM_RECETTE) FROM recette;';
+				$nb_sql = 'SELECT MAX(NUMERO_RECETTE) FROM recette;';
 				$result = mysql_query($nb_sql);
 				if (!$result) {
 					die('Requête invalide : ' . mysql_error());
