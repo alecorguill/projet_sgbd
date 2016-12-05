@@ -21,8 +21,8 @@
  
 	 if (isset ($_POST['valider'])){	
 	 $pseudo=$_POST['pseudo'];
-   //$_SESSION['pseudo'] = $pseudo;
-	 $nb_sql = 'SELECT count(*) FROM internaute;';
+   $_SESSION['pseudo'] = $pseudo;
+	 $nb_sql = 'SELECT MAX(numero_internaute) FROM internaute;';
 	 $result = mysql_query($nb_sql);
    if (!$result) {
     die('Requête invalide : ' . mysql_error());
@@ -33,12 +33,20 @@
 
    $cur_nb[0]++;
 
+
+
    $sql = 'insert into internaute(numero_internaute,pseudo) values('.$cur_nb[0].',"'.$pseudo.'")';
            mysql_query ($sql) or die ('Erreur SQL !'.$sql.'<br/>'.mysql_error());
 
+   $_SESSION['id']=$cur_nb[0];
+
    mysql_close();
-	 }
+   header("Location: index.html");
+
+	 }  
+
 	 ?>
+
 
     </div>
   </body>

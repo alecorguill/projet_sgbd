@@ -7,7 +7,9 @@
 </head>
 <body>
     <?php $name=$_GET['toto'];
-          $cur_nb=$_GET['titi'];?>
+          $cur_nb=$_GET['titi'];
+          $pseudo=$_SESSION['pseudo'];
+          $id=$_SESSION['id'];?>
     <h1>Modification de la recette <?php echo$name;?></h1>
 
     <form name="add_recette" method="post" action="">
@@ -74,22 +76,26 @@
       $nb_p=(int) $_POST['NOMBRE_DE_PERSONNES'];
 
    $note=(int) $_POST['NOTE'];
-   if($note == 0)
+   if(!($note == 0))
    {
-      $note=mysql_query('SELECT VALEUR_NOTE from RECETTE R, NOTE N WHERE R.NUMERO_RECETTE=N.NUMERO_RECETTE;');
-      $note=mysql_fetch_array($note);
-      $note=$note[0];
-   }
+      $note_test=mysql_query('SELECT VALEUR_NOTE from NOTE WHERE NUMERO_RECETTE='.$cur_nb[0].' AND NUMERO_INTERNAUTE='.$id.';');
+      if (mysql_num_rows($note_test) == 0){
+        $sql = mysql_query('INSERT INTO NOTE values ('.$note.','.$cur_nb[0].','.$id.')') or die ('Erreur SQL !'.$sql.'<br/>'.mysql_error());
+      } else {
+      echo "coucou";
+      mysql_query('UPDATE NOTE SET VALEUR_NOTE='.$note.' WHERE NUMERO_RECETTE='.$cur_nb[0].' AND NUMERO_INTERNAUTE='.$id.'') or die ('Erreur SQL !'.$sql.'<br/>'.mysql_error());
+    }
+  }
 
-   mysql_query('UPDATE NOTE SET VALEUR_NOTE='.$note.' WHERE NUMERO_RECETTE='.$cur_nb[0].'') or die ('Erreur SQL !'.$sql.'<br/>'.mysql_error());
-
-   $comment=$_POST['COMMENTAIRE'];
-   if(!(!isset($comment) || trim($comment) == '')){
-      $comment=mysql_real_escape_string($_POST['COMMENTAIRE']);
-	  $nb_comment=mysql_fetch_array(mysql_query('SELECT MAX(NUMERO_COMMENTAIRE) FROM COMMENTAIRE;'));
-	  $nb_comment=$nb_comment[0]++;
-	  mysql_query('UPDATE COMMENTAIRE SET DESCRIPTION_COMMENTAIRE="'.$comment.'" WHERE NUMERO_RECETTE='.$cur_nb[0].';') or die ('Erreur SQL !'.$sql.'<br/>'.mysql_error());
-	}
+    //$comment=$_POST['COMMENTAIRE'];
+    //if(!(!isset($comment) || trim($comment) == '')){
+      //$comment=mysql_real_escape_string($_POST['COMMENTAIRE']);
+      //$exist=mysql_fetch_array(mysql_query('SELECT NUMERO_COMMENTAIRE FROM COMMENTAIRE WHERE NUMERO_RECETTE = '.$cur_nb[0].' AND NUMERO_INTERNAUTE=(SELECT NUMERO_INTERNAUTE FROM INTERNAUTE WHERE PSEUDO="'.$pseudo.'");'));
+      //echo $exist;
+	    //$nb_comment=mysql_fetch_array(mysql_query('SELECT MAX(NUMERO_COMMENTAIRE) FROM COMMENTAIRE;'));
+	    //$nb_comment=$nb_comment[0]++;
+	    //mysql_query('UPDATE COMMENTAIRE SET DESCRIPTION_COMMENTAIRE="'.$comment.'" WHERE NUMERO_RECETTE='.$cur_nb[0].';') or die ('Erreur SQL !'.$sql.'<br/>'.mysql_error());
+	//}
 
    //$desc=$_POST['DESCRIPTION'];
    //if(!isset($desc) || trim($desc) == '')

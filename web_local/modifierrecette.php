@@ -1,3 +1,5 @@
+<?php session_start();?>
+
 <html>
 <head>
   <meta charset="utf-8">
@@ -11,7 +13,6 @@
       Nom de la recette à modifier: <input type="text" name="NOM_MODIF_RECETTE"/> <br/>
       <input type="submit" name="valider_modif_recette" value="OK"/>       
     </form>
-
 
     <?php
 
