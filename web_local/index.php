@@ -34,7 +34,6 @@
 				$cur_nb[0]++;
 				$sql = 'insert into internaute(NUMERO_INTERNAUTE,pseudo) values ('.$cur_nb[0].',"'.$pseudo.'");';
 				mysql_query ($sql) or die ('Erreur SQL !'.$sql.'<br />'.mysql_error());
-				mysql_close();
 			}
 			//On redirige le client vers la page client
 			$_SESSION['pseudo']=$pseudo;
@@ -43,6 +42,8 @@
 			$cur_nb = mysql_fetch_array($nb_internaute);
 			$_SESSION['id']    =$cur_nb[0];
 			header("Location: index_client.html");
+			mysql_close();
+
 			exit();
 		}
 		?>
