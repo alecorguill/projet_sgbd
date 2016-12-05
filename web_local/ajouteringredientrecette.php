@@ -21,10 +21,8 @@
 	if(isset($_POST['valider_ingredients'])){
 	for($i = 1; $i <=$nb_ing; $i++){
 		//Recupere clef etrangère 	
-		echo($nom_recette);
 		$nb_recette       = 'SELECT NUMERO_RECETTE FROM recette where NOM_RECETTE="'.$nom_recette.'";';
 		$nom_ingredient_i = mysql_real_escape_string($_POST["NOM_INGREDIENT_$i"]);
-		echo($nom_ingredient_i);
 		$nb_ingredient    = 'SELECT NUMERO_INGREDIENT FROM ingredient where NOM_ingredient="'.$nom_ingredient_i.'";';
 		$res_recette      = mysql_fetch_array(mysql_query($nb_recette)) or die ('Erreur SQL !'.$nb_recette.'<br/>'.mysql_error());
 		$res_ingre        = mysql_fetch_array(mysql_query($nb_ingredient)) or die ('Erreur SQL !'.$nb_ing.'<br/>'.mysql_error());
