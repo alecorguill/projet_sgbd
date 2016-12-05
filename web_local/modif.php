@@ -84,19 +84,12 @@
    mysql_query('UPDATE NOTE SET VALEUR_NOTE='.$note.' WHERE NUMERO_RECETTE='.$cur_nb[0].'') or die ('Erreur SQL !'.$sql.'<br/>'.mysql_error());
 
    $comment=$_POST['COMMENTAIRE'];
-   if(!isset($comment) || trim($comment) == '')
-   {
-      $comment=mysql_query('SELECT DESCRIPTION_COMMENTAIRE from COMMENTAIRE WHERE NUMERO_RECETTE='.$cur_nb[0].';');
-      $comment = mysql_fetch_array($comment);
-      $comment=$comment[0];
-   } else 
+   if(!(!isset($comment) || trim($comment) == '')){
       $comment=mysql_real_escape_string($_POST['COMMENTAIRE']);
-
-   $nb_comment=mysql_fetch_array(mysql_query('SELECT MAX(NUMERO_COMMENTAIRE) FROM COMMENTAIRE;'));
-   $nb_comment=$nb_comment[0]++;
-
-   mysql_query('UPDATE COMMENTAIRE SET DESCRIPTION_COMMENTAIRE="'.$comment.'" WHERE NUMERO_RECETTE='.$cur_nb[0].';') or die ('Erreur SQL !'.$sql.'<br/>'.mysql_error());
-
+	  $nb_comment=mysql_fetch_array(mysql_query('SELECT MAX(NUMERO_COMMENTAIRE) FROM COMMENTAIRE;'));
+	  $nb_comment=$nb_comment[0]++;
+	  mysql_query('UPDATE COMMENTAIRE SET DESCRIPTION_COMMENTAIRE="'.$comment.'" WHERE NUMERO_RECETTE='.$cur_nb[0].';') or die ('Erreur SQL !'.$sql.'<br/>'.mysql_error());
+	}
 
    //$desc=$_POST['DESCRIPTION'];
    //if(!isset($desc) || trim($desc) == '')
