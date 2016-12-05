@@ -104,17 +104,23 @@ if(!(!isset($comment) || trim($comment) == ''))
 }
 }
 
-//$desc=$_POST['DESCRIPTION'];
-//if(!isset($desc) || trim($desc) == '')
-//{
-  //$desc = mysql_real_escape_string()
+$desc=$_POST['DESCRIPTION'];
+if(!isset($desc) || trim($desc) == '')
+{
+  $desc = mysql_real_escape_string($_POST['DESCRIPTION']);
+  $desc_test=mysql_query('SELECT DESCRIPTION_MODIFICATION FROM MODIFICATION M, SOUMISSION S, RECETTE R WHERE S.NUMERO_MODIFICATION=M.NUMERO_MODIFICATION AND S.NUMERO_RECETTE=R.NUMERO_RECETTE='.$cur_nb[0].';') or die ('Erreur SQL !'.$sql.'<br/>'.mysql_error());
+  if (mysql_num_rows($desc_test) == 0)
+  {
+    
+
+  }
 
 
-  //$desc=mysql_query('SELECT NOMBRE_DE_PERSONNES from RECETTE WHERE NUMERO_RECETTE='.$cur_nb[0].';');
-  //$desc = mysql_fetch_array($desc);
-  //$desc=$desc[0];
-//} else 
-//$desc=mysql_real_escape_string($_POST['NOMBRE_DE_PERSONNES']);
+  $desc=mysql_query('SELECT NOMBRE_DE_PERSONNES from RECETTE WHERE NUMERO_RECETTE='.$cur_nb[0].';');
+  $desc = mysql_fetch_array($desc);
+  $desc=$desc[0];
+} else 
+$desc=mysql_real_escape_string($_POST['NOMBRE_DE_PERSONNES']);
 
 
 
