@@ -15,7 +15,7 @@
 			Pour ajouter une caracteristique à un ingrédient<input type="submit" name="ajouter_carac" value="OK"/>	  
 		</form>
 		<form name="accueil" method="post" action="">
-			Pour revenir à la page d'acceuil<input type="submit" name="aller_acceuil" value="OK"/>	  
+			<input type="submit" name="aller_acceuil" value="Accueil"/>	  
 		</form>
 		<?php
 		if (isset ($_POST['aller_acceuil'])){

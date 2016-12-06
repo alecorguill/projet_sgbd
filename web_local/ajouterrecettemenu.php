@@ -32,7 +32,6 @@
 	}
 		mysql_close();
 		?>
-	}
 </div>
 </body>
 </html>
