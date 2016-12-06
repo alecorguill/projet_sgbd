@@ -104,7 +104,7 @@
      while($donnees = mysql_fetch_array($reponse))
      {
        echo"<ul>
-       <li>$donnees[1] $donnees[2] de $donnees[0]</li>
+       <li>$donnees[0]</li>
        </ul>";
      }
 
