@@ -105,24 +105,23 @@ if(!(!isset($comment) || trim($comment) == ''))
 }
 
 $desc=$_POST['DESCRIPTION'];
-if(!isset($desc) || trim($desc) == '')
+if(!(!isset($desc) || trim($desc) == ''))
 {
   $desc = mysql_real_escape_string($_POST['DESCRIPTION']);
-  $desc_test=mysql_query('SELECT DESCRIPTION_MODIFICATION FROM MODIFICATION M, SOUMISSION S, RECETTE R WHERE S.NUMERO_MODIFICATION=M.NUMERO_MODIFICATION AND S.NUMERO_RECETTE=R.NUMERO_RECETTE='.$cur_nb[0].';') or die ('Erreur SQL !'.$sql.'<br/>'.mysql_error());
-  if (mysql_num_rows($desc_test) == 0)
-  {
-    
-
-  }
-
-
-  $desc=mysql_query('SELECT NOMBRE_DE_PERSONNES from RECETTE WHERE NUMERO_RECETTE='.$cur_nb[0].';');
-  $desc = mysql_fetch_array($desc);
-  $desc=$desc[0];
-} else 
-$desc=mysql_real_escape_string($_POST['NOMBRE_DE_PERSONNES']);
-
-
+  echo $desc;
+  $nb_desc = mysql_query('SELECT MAX(NUMERO_MODIFICATION) FROM MODIFICATION');
+  $nb_desc = mysql_fetch_array($nb_desc);
+  if ($nb_desc[0] == NULL)
+    $nb_desc = 1;
+  else
+    $nb_desc = $nb_desc[0];
+  echo $nb_desc;
+  $date=date('Y-n-d');
+  $date=mysql_real_escape_string($date);
+  $sql = mysql_query('INSERT INTO MODIFICATION values ('.$nb_desc.',"'.$desc.'","'.$date.'");') or die ('Erreur SQL !'.$sql.'<br/>'.mysql_error());
+  $sql2 = mysql_query('INSERT INTO ACTION values ('.$id.','.$nb_desc.');') or die ('Erreur SQL !'.$sql2.'<br/>'.mysql_error());
+  $sql3 = mysql_query('INSERT INTO SOUMISSION values ('.$nb_desc.','.$cur_nb[0].');') or die ('Erreur SQL !'.$sql3.'<br/>'.mysql_error());
+}
 
 
 
