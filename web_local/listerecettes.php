@@ -1,4 +1,7 @@
-<?php session_start();?>
+<?php session_start();
+  $ok=$_GET['toto'];
+  $recette=$_GET['titi'];
+  ?>
 
 <html>
 <head>
@@ -8,18 +11,20 @@
   <h1>Les recettes gourmandes</h1>
   <div>
 
-    <form name="change_recette" method="post" action="">
+    <form name="charge_recette" method="post" action="">
       Consulter une recette: <input type="text" name="consult_recette"/> <br/>
       <input type="submit" name="consulter_recette" value="OK"/>       
     </form>
     <?php 
 
-    if (isset ($_POST['consulter_recette'])){
+    if (isset ($_POST['consulter_recette']) || $ok){
 
       $base = @mysql_connect ('localhost', 'root', '')or die("Impossible de se connecter : " . mysql_error());  
       mysql_select_db ('recettes', $base) ;
 
-      $recette = mysql_real_escape_string($_POST['consult_recette']);
+
+      if (!($recette))
+        $recette = mysql_real_escape_string($_POST['consult_recette']);
 
       $sql = mysql_query('SELECT * from RECETTE where NOM_RECETTE="'.$recette.'";');
       $sql=mysql_fetch_array($sql);
@@ -31,7 +36,7 @@
       $id = mysql_query('SELECT PSEUDO FROM internaute where NUMERO_INTERNAUTE = '.$sql[0].';');
       $id = mysql_fetch_array($id);
 
-      $num_rec = mysql_query('SELECT NUMERO_RECETTE FROM RECETTE WHERE NOM_RECETTE = "'.$sql[1].'";') or die ('Erreur SQL !'.$sql.'<br/>'.mysql_error());
+      $num_rec = mysql_query('SELECT NUMERO_RECETTE FROM RECETTE WHERE NOM_RECETTE = "'.$sql[1].'";') or die ('Erreur SQL !'.$num_rec.'<br/>'.mysql_error());
       if(mysql_num_rows($num_rec) == 0){
         $num_rec=0;
       } else {
@@ -43,7 +48,7 @@
 
       echo "La recette $sql[1] a été ajouté par l'internaute $id[0] le $sql[2]. </br></br>";
 
-      $nb_menu=mysql_query('SELECT count(*) from COMPOSITION WHERE NUMERO_RECETTE='.$num_rec.';') or die ('Erreur SQL !'.$sql.'<br/>'.mysql_error());
+      $nb_menu=mysql_query('SELECT count(*) from COMPOSITION WHERE NUMERO_RECETTE='.$num_rec.';') or die ('Erreur SQL !'.$nb_menu.'<br/>'.mysql_error());
       if (mysql_num_rows($nb_menu)==0){
         $nb_menu=0;
       } else {
