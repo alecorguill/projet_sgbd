@@ -101,6 +101,9 @@
   					$sql = mysql_query('INSERT INTO MODIFICATION values ('.$nb_desc.',"'.$desc.'","'.$date.'");') or die ('Erreur SQL !'.$sql.'<br/>'.mysql_error());
   					$sql2 = mysql_query('INSERT INTO ACTION values ('.$id.','.$nb_desc.');') or die ('Erreur SQL !'.$sql2.'<br/>'.mysql_error());
   					$sql3 = mysql_query('INSERT INTO SOUMISSION values ('.$nb_desc.','.$cur_nb[0].');') or die ('Erreur SQL !'.$sql3.'<br/>'.mysql_error());
+				} else {
+					echo "You did not fill out the required fields.";
+					exit;
 				}
 
 
