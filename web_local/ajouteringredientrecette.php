@@ -26,7 +26,6 @@
 			$nom_ingredient_i = mysql_real_escape_string($_POST["NOM_INGREDIENT_$i"]);
 			$nb_ingredient    = 'SELECT NUMERO_INGREDIENT FROM ingredient where NOM_ingredient="'.$nom_ingredient_i.'";';
 			$res_ingre        = mysql_query($nb_ingredient) or die ('Erreur SQL !'.$nb_ingredient.'<br/>'.mysql_error());
-			echo((mysql_num_rows($res_ingre) == 0));
 			if(mysql_num_rows($res_ingre) == 0){
 					$max_nb_ingredient = 'SELECT MAX(NUMERO_INGREDIENT) FROM INGREDIENT;';
 					$result = mysql_query($max_nb_ingredient) or die ('Erreur SQL !'.$max_nb_ingredient.'<br/>'.mysql_error());
@@ -35,7 +34,6 @@
 		//Ajout de l'ingredient
 					$sql = 'insert into ingredient(numero_ingredient,nom_ingredient) values('.$res_ingre[0].',"'.$nom_ingredient_i.'")';
 					mysql_query ($sql) or die ('Erreur SQL !'.$sql.'<br/>'.mysql_error());
-					echo($nom_ingredient_i . 'a bien été ajouté');
 				}
 			else{
 				$res_ingre = mysql_fetch_array($res_ingre);
@@ -46,10 +44,13 @@
 				$result = mysql_query($sql) or die ('Erreur SQL !'.$sql.'<br/>'.mysql_error());
 
 			}
+
 		}
+		echo "coucou";
+		header("Location: index_client.html");
 		mysql_close();
 		?>
-	}
+
 </div>
 </body>
 </html>

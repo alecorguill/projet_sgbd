@@ -1,3 +1,6 @@
+	<?php session_start();
+	$id=$_SESSION['id'];?>
+
 	<html>
 	<head>
 		<meta charset="utf-8">
@@ -13,6 +16,7 @@
 				Temps de cuisson (en min) : <input type="text" name="TEMPS_CUISSON_RECETTE"/> <br/>
 				Nombre de personne(s) : <input type="text" name="NOMBRE_DE_PERSONNES"/> <br/>
 				Nombre d'ingredient(s) : <input type='int' name="nb_ingredient"/> <br/>
+				Description de la préparation : <input type='text' name="desc_prep"/> <br/>
 				<input type="submit" name="valider_recette" value="OK"/>	     
 			</form>
 
@@ -79,6 +83,27 @@
 	 //Ajout de la recette
 				$sql = 'insert into RECETTE(NUMERO_RECETTE,NOM_RECETTE,DATE_CREATION_RECETTE,TEMPS_PREPARATION_RECETTE,TEMPS_CUISSON_RECETTE,NOMBRE_DE_PERSONNES) values ('.$cur_nb[0].', "'.$nom.'", "'.$date.'", '.$temps_prep.', '.$temps_cuis.', '.$nb_p.')';
 				mysql_query ($sql) or die ('Erreur SQL !'.$sql.'<br/>'.mysql_error());
+
+
+				$desc=$_POST['desc_prep'];
+				if(!(!isset($desc) || trim($desc) == ''))
+				{
+  					$desc = mysql_real_escape_string($_POST['desc_prep']);
+  					$nb_desc = mysql_query('SELECT MAX(NUMERO_MODIFICATION) FROM MODIFICATION');
+  					$nb_desc = mysql_fetch_array($nb_desc);
+  					if ($nb_desc[0] == NULL)
+    					$nb_desc = 1;
+  					else{
+    					$nb_desc = $nb_desc[0];
+    					$nb_desc++;}
+  					$date=date('Y-n-d');
+  					$date=mysql_real_escape_string($date);
+  					$sql = mysql_query('INSERT INTO MODIFICATION values ('.$nb_desc.',"'.$desc.'","'.$date.'");') or die ('Erreur SQL !'.$sql.'<br/>'.mysql_error());
+  					$sql2 = mysql_query('INSERT INTO ACTION values ('.$id.','.$nb_desc.');') or die ('Erreur SQL !'.$sql2.'<br/>'.mysql_error());
+  					$sql3 = mysql_query('INSERT INTO SOUMISSION values ('.$nb_desc.','.$cur_nb[0].');') or die ('Erreur SQL !'.$sql3.'<br/>'.mysql_error());
+				}
+
+
 				$nb_ing = $_POST['nb_ingredient'];
 				header("Location: ajouteringredientrecette.php?nb_ing=$nb_ing&nom_recette=$nom");
 				mysql_close();

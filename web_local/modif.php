@@ -108,14 +108,13 @@ $desc=$_POST['DESCRIPTION'];
 if(!(!isset($desc) || trim($desc) == ''))
 {
   $desc = mysql_real_escape_string($_POST['DESCRIPTION']);
-  echo $desc;
   $nb_desc = mysql_query('SELECT MAX(NUMERO_MODIFICATION) FROM MODIFICATION');
   $nb_desc = mysql_fetch_array($nb_desc);
   if ($nb_desc[0] == NULL)
     $nb_desc = 1;
-  else
+  else {
     $nb_desc = $nb_desc[0];
-  echo $nb_desc;
+    $nb_desc++;}
   $date=date('Y-n-d');
   $date=mysql_real_escape_string($date);
   $sql = mysql_query('INSERT INTO MODIFICATION values ('.$nb_desc.',"'.$desc.'","'.$date.'");') or die ('Erreur SQL !'.$sql.'<br/>'.mysql_error());
@@ -128,6 +127,8 @@ if(!(!isset($desc) || trim($desc) == ''))
    //Ajout de la recette
 $sql = 'UPDATE RECETTE set  NOM_RECETTE="'.$nom.'", TEMPS_PREPARATION_RECETTE='.$temps_prep.', TEMPS_CUISSON_RECETTE='.$temps_cuis.', NOMBRE_DE_PERSONNES='.$nb_p.' WHERE NUMERO_RECETTE='.$cur_nb[0].';';
 mysql_query ($sql) or die ('Erreur SQL !'.$sql.'<br/>'.mysql_error());
+
+header("Location: index_client.html");
 
 mysql_close();
 
