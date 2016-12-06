@@ -92,17 +92,27 @@
       echo " :</br>";
 
     if($nb_ingre){
-     $sql3 = 'SELECT NOM_INGREDIENT FROM INGREDIENT I, CONTENU C WHERE I.NUMERO_INGREDIENT=C.NUMERO_INGREDIENT AND C.NUMERO_RECETTE='.$num_rec.';';
+     $sql3 = 'SELECT NOM_INGREDIENT, QUANTITE, UNITE FROM INGREDIENT I, CONTENU C WHERE I.NUMERO_INGREDIENT=C.NUMERO_INGREDIENT AND C.NUMERO_RECETTE='.$num_rec.';';
      $reponse = mysql_query ($sql3) or die ('Erreur SQL !'.$sql3.'<br/>'.mysql_error());
 
      while($donnees = mysql_fetch_array($reponse))
      {
        echo"<ul>
-       <li>$donnees[0]</li>
+       <li>$donnees[1] $donnees[2] de $donnees[0]</li>
        </ul>";
      }
 
    }
+   $max_date = mysql_fetch_array(mysql_query('SELECT MAX(DATE_MODIFICATION),MAX(M.NUMERO_MODIFICATION) FROM MODIFICATION M, SOUMISSION S WHERE M.NUMERO_MODIFICATION=S.NUMERO_MODIFICATION AND S.NUMERO_RECETTE='.$num_rec.'')) or die ('Erreur SQL !'.$max_date.'<br/>'.mysql_error());
+   $id = mysql_fetch_array(mysql_query('SELECT PSEUDO FROM INTERNAUTE I, ACTION A WHERE I.NUMERO_INTERNAUTE=A.NUMERO_INTERNAUTE AND A.NUMERO_MODIFICATION='.$max_date[1].';')) or die ('Erreur SQL !'.$sid.'<br/>'.mysql_error());
+   echo "Préparation : (dernière modification par $id[0] le $max_date[0])</br>";
+   $sql4 = 'SELECT DESCRIPTION_MODIFICATION FROM MODIFICATION M, SOUMISSION S WHERE M.NUMERO_MODIFICATION='.$max_date[1].' AND S.NUMERO_MODIFICATION='.$max_date[1].' AND S.NUMERO_RECETTE='.$num_rec.';';
+   $reponse = mysql_query ($sql4) or die ('Erreur SQL !'.$sql4.'<br/>'.mysql_error());
+
+   $donnees = mysql_fetch_array($reponse);
+   echo"<ul>
+   <li>$donnees[0]</li>
+   </ul>";
 
    mysql_close();
 
