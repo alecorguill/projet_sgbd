@@ -44,9 +44,9 @@
 				$result = mysql_query($sql) or die ('Erreur SQL !'.$sql.'<br/>'.mysql_error());
 
 			}
+		header("Location: index_client.html");
 
 		}
-		header("Location: index_client.html");
 		mysql_close();
 		?>
 
