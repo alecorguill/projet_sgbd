@@ -46,7 +46,6 @@
 			}
 
 		}
-		echo "coucou";
 		header("Location: index_client.html");
 		mysql_close();
 		?>
