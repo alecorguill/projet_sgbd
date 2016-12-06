@@ -12,41 +12,47 @@
 			<input type="submit" name="valider_ingredient" value="OK"/>	     
 		</form>
 		<form name="add_carac" method="post" action="">
-  			Pour ajouter une caracteristique à un ingrédient<input type="submit" name="ajouter_carac" value="OK"/>	  
+			Pour ajouter une caracteristique à un ingrédient<input type="submit" name="ajouter_carac" value="OK"/>	  
 		</form>
-   
+		<form name="accueil" method="post" action="">
+			Pour revenir à la page d'acceuil<input type="submit" name="aller_acceuil" value="OK"/>	  
+		</form>
 		<?php
+		if (isset ($_POST['aller_acceuil'])){
+			header("Location: index_client.html");
+			exit(); 
+		}
 		if (isset ($_POST['ajouter_carac'])){
-		header("Location: ajoutercaracteristique.php");
-		exit(); 
+			header("Location: ajoutercaracteristique.php");
+			exit(); 
 		}
 		if (isset ($_POST['valider_ingredient'])){
 
-		$base = mysql_connect ('localhost', 'root', '')or die("Impossible de se connecter : " . mysql_error());;  
-		mysql_select_db ('recettes', $base) ;
+			$base = mysql_connect ('localhost', 'root', '')or die("Impossible de se connecter : " . mysql_error());;  
+			mysql_select_db ('recettes', $base) ;
 
 		//Ajout de l'ingredient
-		$nom_ingredient=mysql_real_escape_string($_POST['NOM_INGREDIENT']);
-		$nb_sql = 'SELECT NUMERO_INGREDIENT FROM ingredient where NOM_INGREDIENT="'.$nom_ingredient.'";';
-		$result = mysql_query($nb_sql);
-		if(mysql_num_rows($result) == 0)
-		{
+			$nom_ingredient=mysql_real_escape_string($_POST['NOM_INGREDIENT']);
+			$nb_sql = 'SELECT NUMERO_INGREDIENT FROM ingredient where NOM_INGREDIENT="'.$nom_ingredient.'";';
+			$result = mysql_query($nb_sql);
+			if(mysql_num_rows($result) == 0)
+			{
 
-		$max_nb_ingredient = 'SELECT MAX(NUMERO_INGREDIENT) FROM INGREDIENT;';
-		$result = mysql_query($max_nb_ingredient);
-		$cur_nb = mysql_fetch_array($result);
-		$cur_nb[0]++;
+				$max_nb_ingredient = 'SELECT MAX(NUMERO_INGREDIENT) FROM INGREDIENT;';
+				$result = mysql_query($max_nb_ingredient);
+				$cur_nb = mysql_fetch_array($result);
+				$cur_nb[0]++;
 		//Ajout de l'ingredient
-		$sql = 'insert into ingredient(numero_ingredient,nom_ingredient) values('.$cur_nb[0].',"'.$nom_ingredient.'")';
-		mysql_query ($sql) or die ('Erreur SQL !'.$sql.'<br/>'.mysql_error());
-	}
-	else {
-	echo('Cet ingredient existe deja');
-	}
-	mysql_close();
-	}
-?>
+				$sql = 'insert into ingredient(numero_ingredient,nom_ingredient) values('.$cur_nb[0].',"'.$nom_ingredient.'")';
+				mysql_query ($sql) or die ('Erreur SQL !'.$sql.'<br/>'.mysql_error());
+			}
+			else {
+				echo('Cet ingredient existe deja');
+			}
+			mysql_close();
+		}
+		?>
 
-</div>
+	</div>
 </body>
 </html>

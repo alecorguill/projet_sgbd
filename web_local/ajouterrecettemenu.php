@@ -27,7 +27,7 @@
 		$res_recette        = mysql_fetch_array(mysql_query($numero_recette)) or die ('Erreur SQL !'.$numero_recette.'<br/>'.mysql_error());
 		$sql              = 'insert into composition(NUMERO_RECETTE,NUMERO_menu) values('.$res_recette[0].','.$res_menu[0].');';
 		$result = mysql_query($sql) or die ('Erreur SQL !'.$sql.'<br/>'.mysql_error());
-
+		header("Location: index_client.html");
 		}
 	}
 		mysql_close();
