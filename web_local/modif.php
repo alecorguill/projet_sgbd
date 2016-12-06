@@ -101,6 +101,9 @@ if(!(!isset($comment) || trim($comment) == ''))
         $nb_com++;}
     $sql = mysql_query('INSERT INTO COMMENTAIRE values ('.$nb_com.','.$id.','.$cur_nb[0].',"'.$comment.'")') or die ('Erreur SQL !'.$sql.'<br/>'.mysql_error()); 
 } else {
+    $nb_com=mysql_query('SELECT NUMERO_COMMENTAIRE FROM COMMENTAIRE WHERE NUMERO_INTERNAUTE='.$id.';');
+    $nb_com=mysql_fetch_array($nb_com);
+    $nb_com=$nb_com[0];
     mysql_query('UPDATE COMMENTAIRE SET DESCRIPTION_COMMENTAIRE="'.$comment.'" WHERE NUMERO_RECETTE='.$cur_nb[0].' AND NUMERO_INTERNAUTE='.$id.' AND NUMERO_COMMENTAIRE='.$nb_com.';') or die ('Erreur SQL !'.$sql.'<br/>'.mysql_error());
 }
 }
