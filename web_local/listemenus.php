@@ -69,10 +69,18 @@
        }
 
      }
-
-}
-
-?>
+     mysql_close();
+   }
+   ?> </br> </br>
+   <form name="accueil" method="post" action="">
+    <input type="submit" name="aller_acceuil" value="Accueil"/>   
+  </form>
+  <?php
+  if (isset ($_POST['aller_acceuil'])){
+    header("Location: index_client.html");
+    exit(); 
+  }
+  ?>
 </div>
 </body>
 </html>

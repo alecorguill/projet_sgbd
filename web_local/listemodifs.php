@@ -1,7 +1,7 @@
 <?php session_start();
-$ok=$_GET['toto'];
-$recette=$_GET['titi'];
-?>
+  $ok=$_GET['toto'];
+  $recette=$_GET['titi'];
+  ?>
 
 <html>
 <head>
@@ -11,13 +11,13 @@ $recette=$_GET['titi'];
   <h1>Les recettes gourmandes</h1>
   <div>
 
-    <form name="charge_recette" method="post" action="">
-      Consulter une recette: <input type="text" name="consult_recette"/> <br/>
-      <input type="submit" name="consulter_recette" value="OK"/>       
+    <form name="charge_modifs" method="post" action="">
+      Consulter les modifications d'une recette: <input type="text" name="consult_recette"/> <br/>
+      <input type="submit" name="consulter_modifs" value="OK"/>       
     </form>
     <?php 
 
-    if (isset ($_POST['consulter_recette']) || $ok){
+    if (isset ($_POST['consulter_modifs']) || $ok){
 
       $base = @mysql_connect ('localhost', 'root', '')or die("Impossible de se connecter : " . mysql_error());  
       mysql_select_db ('recettes', $base) ;
@@ -48,6 +48,8 @@ $recette=$_GET['titi'];
 
       echo "La recette $sql[1] a été ajouté par l'internaute $id[0] le $sql[2]. </br></br>";
 
+      
+/*
       $nb_menu=mysql_query('SELECT count(*) from COMPOSITION WHERE NUMERO_RECETTE='.$num_rec.';') or die ('Erreur SQL !'.$nb_menu.'<br/>'.mysql_error());
       if (mysql_num_rows($nb_menu)==0){
         $nb_menu=0;
@@ -152,45 +154,43 @@ $recette=$_GET['titi'];
  <li>$donnees[0]</li>
  </ul>";
 
- echo "<a href=listemodifs.php?titi=$recette&toto=1>Voir la liste des modifications</a></br></br>";
-
  $avg_note=mysql_fetch_array(mysql_query('SELECT AVG(n.VALEUR_NOTE) FROM note n WHERE n.NUMERO_RECETTE='.$num_rec.';'));
  $votant=mysql_fetch_array(mysql_query('SELECT count(*) FROM NOTE WHERE NUMERO_RECETTE='.$num_rec.';'));
  if ($votant[0])
    echo "Note moyenne : $avg_note[0] (Parmis $votant[0] votes)</br><a href=noterrecette.php?toto=$recette&titi=$num_rec>Notez la recette !</a></br></br>";
  else
    echo "Pas de note pour cette recette ! <a href=noterrecette.php?toto=$recette&titi=$num_rec>Notez la recette !</a></br></br>";
-
- $sql5 = 'SELECT I.PSEUDO, C.DESCRIPTION_COMMENTAIRE FROM INTERNAUTE I, COMMENTAIRE C WHERE C.NUMERO_RECETTE='.$num_rec.' AND I.NUMERO_INTERNAUTE=C.NUMERO_INTERNAUTE;';
+*/
+ $sql5 = 'SELECT I.PSEUDO, M.DATE_MODIFICATION, M.DESCRIPTION_MODIFICATION FROM INTERNAUTE I, ACTION A, MODIFICATION M, SOUMISSION S WHERE I.NUMERO_INTERNAUTE=A.NUMERO_INTERNAUTE AND A.NUMERO_MODIFICATION=M.NUMERO_MODIFICATION AND M.NUMERO_MODIFICATION=S.NUMERO_MODIFICATION AND S.NUMERO_RECETTE='.$num_rec.';';
  $reponse = mysql_query ($sql5) or die ('Erreur SQL !'.$sql5.'<br/>'.mysql_error());
 
  if (mysql_num_rows($reponse)){
-   echo " Commentaires : </br>";
+   echo " Historique : </br>";
 
    while($donnees = mysql_fetch_array($reponse))
    {
      echo"<ul>
-     <li>$donnees[0] : $donnees[1]</li>
+     <li>$donnees[0] le $donnees[1] : $donnees[2]</li>
      </ul>";
    }
-   echo "<a href=commenterrecette.php?toto=$recette&titi=$num_rec>Donnez le votre !</a>";
+   echo "<a href=modif.php?toto=$recette&titi=$num_rec>Modifiez la !</a>";
  } else {
-  echo "Pas de commentaires ! <a href=commenterrecette.php?toto=$recette&titi=$num_rec>Donnez le votre !</a>";
+  echo "Pas de description ! <a href=modif.php?toto=$recette&titi=$num_rec>Ecrivez la !</a>";
 }
 mysql_close();
 
 }
 ?> </br> </br>
-<form name="accueil" method="post" action="">
-  <input type="submit" name="aller_acceuil" value="Accueil"/>   
-</form>
-<?php
-if (isset ($_POST['aller_acceuil'])){
-  header("Location: index_client.html");
-  exit(); 
-}
+    <form name="accueil" method="post" action="">
+      <input type="submit" name="aller_acceuil" value="Accueil"/>   
+    </form>
+    <?php
+    if (isset ($_POST['aller_acceuil'])){
+      header("Location: index_client.html");
+      exit(); 
+    }
+    ?>
 
-?>
 </div>
 </body>
 </html>
