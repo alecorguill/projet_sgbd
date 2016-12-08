@@ -64,6 +64,8 @@ WHERE
 
 
 
+
+
 SELECT
   r.NOM_RECETTE,
   AVG(n.VALEUR_NOTE) "Note moyenne"
@@ -77,3 +79,123 @@ GROUP BY
 ORDER BY
   AVG(n.VALEUR_NOTE)
 DESC;
+
+
+
+-- Pour le tri des ingredients, division en plusieurs sous requetes pour faire ca bien (requete complete en dessous):
+
+-- moyrecette(notes) :
+SELECT
+  i.nom_ingredient,
+  AVG(n.VALEUR_NOTE)
+FROM
+  note n,
+  ingredient i,
+  contenu c
+WHERE
+  i.NUMERO_INGREDIENT = c.NUMERO_INGREDIENT AND c.NUMERO_RECETTE = n.NUMERO_RECETTE
+GROUP BY
+  i.NUMERO_INGREDIENT;
+  
+  
+  
+-- ratio de calories
+
+SELECT
+  i.NOM_INGREDIENT,
+  d.VALEUR /(
+  SELECT
+    SUM(VALEUR)
+  FROM
+    definition
+  WHERE
+    NUMERO_CARACTERISTIQUE = 1
+) AS "Ratio"
+FROM
+  ingredient i,
+  definition d
+WHERE
+  i.NUMERO_INGREDIENT = d.NUMERO_INGREDIENT AND d.NUMERO_CARACTERISTIQUE = 1
+GROUP BY
+  i.NUMERO_INGREDIENT
+
+
+-- Somme des coefs de commentaires
+SELECT
+  i.NOM_INGREDIENT,
+  SUM(
+    IF(
+      @nbCom :=(
+      SELECT
+        COUNT(c.NUMERO_COMMENTAIRE)
+      FROM
+        commentaire c,
+        contenu ct
+      WHERE
+        i.NUMERO_INGREDIENT = ct.NUMERO_INGREDIENT AND ct.NUMERO_RECETTE = c.NUMERO_RECETTE
+    ) <= 3,
+    1,
+    IF(@nbCom <= 10,
+    2,
+    3)
+    )
+  )
+FROM
+  ingredient i
+GROUP BY
+  i.NUMERO_INGREDIENT
+  
+  
+--
+-- du coup la requete finale :
+--
+
+
+SELECT
+  i.NOM_INGREDIENT,
+  (
+  SELECT
+    AVG(n.VALEUR_NOTE)
+  FROM
+    note n,
+    contenu c
+  WHERE
+    i.NUMERO_INGREDIENT = c.NUMERO_INGREDIENT AND c.NUMERO_RECETTE = n.NUMERO_RECETTE
+) *(
+SELECT
+  d.VALEUR /(
+  SELECT
+    SUM(VALEUR)
+  FROM
+    definition
+  WHERE
+    NUMERO_CARACTERISTIQUE = 1
+)
+FROM
+  definition d
+WHERE
+  i.NUMERO_INGREDIENT = d.NUMERO_INGREDIENT AND d.NUMERO_CARACTERISTIQUE = 1
+) *(
+SELECT
+  SUM(
+    IF(
+      @nbCom :=(
+      SELECT
+        COUNT(c.NUMERO_COMMENTAIRE)
+      FROM
+        commentaire c,
+        contenu ct
+      WHERE
+        i.NUMERO_INGREDIENT = ct.NUMERO_INGREDIENT AND ct.NUMERO_RECETTE = c.NUMERO_RECETTE
+    ) <= 3,
+    1,
+    IF(@nbCom <= 10,
+    2,
+    3)
+    )
+  )
+)
+FROM
+  ingredient i
+GROUP BY
+  i.NUMERO_INGREDIENT
