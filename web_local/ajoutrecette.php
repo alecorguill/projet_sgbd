@@ -25,8 +25,7 @@
 
 			if (isset ($_POST['valider_recette'])){
 
-				$base = mysql_connect ('localhost', 'root', '')or die("Impossible de se connecter : " . mysql_error());;  
-				mysql_select_db ('recettes', $base) ;
+				include('seconnecter.php');
 
 				$nb_sql = 'SELECT MAX(NUMERO_RECETTE) FROM recette;';
 				$result = mysql_query($nb_sql);

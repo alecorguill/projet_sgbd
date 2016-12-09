@@ -27,8 +27,7 @@
 		//Ajout de la caracteristique
 
 		if(isset ($_POST['valider_cate'])){
-			$base = mysql_connect ('localhost', 'root', '')or die("Impossible de se connecter : " . mysql_error());;  
-			mysql_select_db ('recettes', $base) ;
+			include('seconnecter.php');
 			$nom_r=mysql_real_escape_string($_POST['NOM_recette']);
 			$nom_c=mysql_real_escape_string($_POST['NOM_CATE']);
 			$numero_internaute = $_SESSION['id'];

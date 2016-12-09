@@ -26,8 +26,7 @@
 
 if (isset ($_POST['noter_recette'])){
 
-   $base = mysql_connect ('localhost', 'root', '')or die("Impossible de se connecter : " . mysql_error());  
-   mysql_select_db ('recettes', $base) ;
+  include('seconnecter.php');
 
   $note=(int) $_POST['NOTE_r'];
   if(!($note == 0))

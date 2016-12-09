@@ -15,8 +15,7 @@
 	echo("<input type=\"submit\" name=\"valider_recettes\" value=\"OK\"/>");
 	echo("</form>");
 	//Ajout dans la table contenu
-	$base = mysql_connect ('localhost', 'root', '')or die("Impossible de se connecter : " . mysql_error());;  
-	mysql_select_db ('recettes', $base) ;
+	include('seconnecter.php');
 	if(isset($_POST['valider_recettes'])){
 		for($i = 1; $i <=$nb_rec; $i++){
 			$nom_recette_i = mysql_real_escape_string($_POST["NOM_RECETTE_$i"]);

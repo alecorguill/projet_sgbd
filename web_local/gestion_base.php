@@ -9,8 +9,7 @@
       <input type="submit" name="valider_2" value="OK"/>	     
     </form>
     <?php
-       $base = mysql_connect ('localhost', 'root', '');  
-       mysql_select_db ('root', $base) ;
+      include('seconnecter.php');
        
        if (isset ($_POST['valider_2'])){	
        $pseudo=$_POST['pseudo'];

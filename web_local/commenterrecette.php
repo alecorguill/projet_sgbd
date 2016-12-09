@@ -22,8 +22,7 @@
 
 if (isset ($_POST['comment_recette'])){
 
-   $base = mysql_connect ('localhost', 'root', '')or die("Impossible de se connecter : " . mysql_error());  
-   mysql_select_db ('recettes', $base) ;
+  include('seconnecter.php');
 
 $comment=$_POST['COMMENTAIRE_r'];
 if(!(!isset($comment) || trim($comment) == ''))

@@ -10,8 +10,7 @@
       <!--INTERNAUTE-->
 
     <?php
-       $base = mysql_connect ('localhost', 'root', '');  
-       mysql_select_db ('recettes', $base) ;
+      include('seconnecter.php');
        $sql = 'SELECT * FROM INTERNAUTE;';
        $reponse = mysql_query ($sql) or die ('Erreur SQL !'.$sql.'<br/>'.mysql_error());
        ?>   

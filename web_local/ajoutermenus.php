@@ -19,8 +19,7 @@
 
 			if (isset ($_POST['valider_menu'])){
 
-				$base = mysql_connect ('localhost', 'root', '')or die("Impossible de se connecter : " . mysql_error());;  
-				mysql_select_db ('recettes', $base) ;
+				include('seconnecter.php');
 				$nb_rec = $_POST['nb_recette'];
 				if($nb_rec <= 0){
 					die('votre menu ne contient aucune recette');

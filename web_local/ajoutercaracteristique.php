@@ -27,8 +27,7 @@
 		//Ajout de la caracteristique
 
 		if(isset ($_POST['valider_carac'])){
-			$base = mysql_connect ('localhost', 'root', '')or die("Impossible de se connecter : " . mysql_error());;  
-			mysql_select_db ('recettes', $base) ;
+			include('seconnecter.php');
 			$nom_ingredient_c=mysql_real_escape_string($_POST['NOM_INGREDIENT_C']);
 			$nom_carac=mysql_real_escape_string($_POST['NOM_CARAC']);
 

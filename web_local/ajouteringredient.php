@@ -28,8 +28,7 @@
 		}
 		if (isset ($_POST['valider_ingredient'])){
 
-			$base = mysql_connect ('localhost', 'root', '')or die("Impossible de se connecter : " . mysql_error());;  
-			mysql_select_db ('recettes', $base) ;
+		include('seconnecter.php');
 
 		//Ajout de l'ingredient
 			$nom_ingredient=mysql_real_escape_string($_POST['NOM_INGREDIENT']);

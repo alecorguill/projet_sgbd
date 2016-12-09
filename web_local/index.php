@@ -21,8 +21,7 @@
 				exit();
 			}
 			//Sinon on regarde si le pseudo existe
-			$base = mysql_connect ('localhost', 'root', '')or die("Impossible de se connecter : " . mysql_error());;  
-			mysql_select_db ('recettes', $base) ;	
+			include('seconnecter.php');
 			$pseudo=mysql_real_escape_string($pseudo);
 			$pseudo_sql = 'SELECT NUMERO_INTERNAUTE FROM internaute where pseudo="'.$pseudo.'";';
 			$result = mysql_query($pseudo_sql) or die ('Erreur SQL !'.$sql.'<br />'.mysql_error());

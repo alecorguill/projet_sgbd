@@ -18,8 +18,7 @@
 
     if (isset ($_POST['valider_note_recette'])){
 
-     $base = mysql_connect ('localhost', 'root', '')or die("Impossible de se connecter : " . mysql_error());  
-     mysql_select_db ('recettes', $base) ;
+      include('seconnecter.php');
 
      $modif = $_POST['NOM_note_RECETTE'];
 

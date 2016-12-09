@@ -16,8 +16,7 @@
 	echo("<input type=\"submit\" name=\"valider_ingredients\" value=\"OK\"/>");
 	echo("</form>");
 	//Ajout dans la table contenu
-	$base = mysql_connect ('localhost', 'root', '')or die("Impossible de se connecter : " . mysql_error());;  
-	mysql_select_db ('recettes', $base) ;
+	include('seconnecter.php');
 	if(isset($_POST['valider_ingredients'])){
 		$nb_recette       = 'SELECT NUMERO_RECETTE FROM recette where NOM_RECETTE="'.$nom_recette.'";';
 		$res_recette      = mysql_fetch_array(mysql_query($nb_recette)) or die ('Erreur SQL !'.$nb_recette.'<br/>'.mysql_error());

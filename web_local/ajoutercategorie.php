@@ -24,8 +24,7 @@
 		<?php
 		if (isset ($_POST['valider_categorie'])){
 
-			$base = mysql_connect ('localhost', 'root', '')or die("Impossible de se connecter : " . mysql_error());;  
-			mysql_select_db ('recettes', $base) ;
+			include('seconnecter.php');
 			$numero_internaute=$_SESSION['id'];
 			$nom_categorie=mysql_real_escape_string($_POST['NOM_CATEGORIE']);
 			$nb_sql = 'SELECT NUMERO_categorie FROM categorie where NOM_categorie="'.$nom_categorie.'" and numero_internaute='.$numero_internaute.';';
