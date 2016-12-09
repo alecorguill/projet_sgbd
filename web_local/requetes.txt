@@ -194,8 +194,11 @@ SELECT
     3)
     )
   )
-)
+) res
 FROM
   ingredient i
 GROUP BY
   i.NUMERO_INGREDIENT
+ORDER BY
+  RES
+DESC
