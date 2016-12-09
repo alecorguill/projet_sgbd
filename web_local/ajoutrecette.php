@@ -105,7 +105,12 @@
 
 
 				$nb_ing = $_POST['nb_ingredient'];
-				header("Location: ajouteringredientrecette.php?nb_ing=$nb_ing&nom_recette=$nom");
+				if($nb_ing <= 0){
+					echo('Votre recette ne contient pas d\'ingredient' );
+				}
+				else{
+					header("Location: ajouteringredientrecette.php?nb_ing=$nb_ing&nom_recette=$nom");
+				}
 				mysql_close();
 			}			
 

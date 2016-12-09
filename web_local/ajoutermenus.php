@@ -21,7 +21,11 @@
 
 				$base = mysql_connect ('localhost', 'root', '')or die("Impossible de se connecter : " . mysql_error());;  
 				mysql_select_db ('recettes', $base) ;
-
+				$nb_rec = $_POST['nb_recette'];
+				if($nb_rec <= 0){
+					die('votre menu ne contient aucune recette');
+				}
+				else{
 				$nb_sql = 'SELECT MAX(Numero_menu) FROM menu;';
 				$result = mysql_query($nb_sql);
 				if (!$result) {
@@ -49,9 +53,9 @@
 	 //Ajout de la recette
 				$sql = 'insert into menu(numero_menu, nom_menu, numero_internaute) values ('.$cur_nb[0].', "'.$nom.'", '.$numero_internaute.')';
 				mysql_query ($sql) or die ('Erreur SQL !'.$sql.'<br/>'.mysql_error());
-				$nb_rec = $_POST['nb_recette'];
 				header("Location: ajouterrecettemenu.php?nb_rec=$nb_rec&nom_menu=$nom");
 				mysql_close();
+				}
 			}			
 
 			?>
