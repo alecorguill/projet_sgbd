@@ -58,13 +58,13 @@
 
 
       if($nb_menu){
-       $sql2 = 'SELECT NOM_RECETTE FROM RECETTE R, COMPOSITION C WHERE R.NUMERO_RECETTE=C.NUMERO_RECETTE AND C.NUMERO_MENU='.$num_menu.';';
+       $sql2 = 'SELECT NOM_RECETTE, R.NUMERO_RECETTE FROM RECETTE R, COMPOSITION C WHERE R.NUMERO_RECETTE=C.NUMERO_RECETTE AND C.NUMERO_MENU='.$num_menu.';';
        $reponse = mysql_query ($sql2) or die ('Erreur SQL !'.$sql2.'<br/>'.mysql_error());
 
        while($donnees = mysql_fetch_array($reponse))
        {
          echo"<ul>
-         <li><a href=listerecettes.php?toto=1&titi=$donnees[0]>$donnees[0]</li>
+         <li><a href=listerecettes.php?titi=$donnees[1]&toto=1>$donnees[0]</li>
          </ul>";
        }
 

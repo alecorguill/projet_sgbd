@@ -6,11 +6,10 @@
   <title>Les recettes gourmandes - Modifier</title>
 </head>
 <body>
-  <?php $name=$_GET['toto'];
-  $cur_nb=$_GET['titi'];
+  <?php $cur_nb=$_GET['titi'];
   $pseudo=$_SESSION['pseudo'];
   $id=$_SESSION['id'];?>
-  <h1>Modification de la recette <?php echo$name;?></h1>
+  <h1>Modification de la recette</h1>
 
   <form name="add_recette" method="post" action="">
     Modifier le nom de la recette : <input type="text" name="NOM_RECETTE"/> <br/>

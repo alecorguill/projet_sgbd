@@ -1,6 +1,12 @@
 <?php session_start();
 $ok=$_GET['toto'];
 $recette=$_GET['titi'];
+$base = @mysql_connect ('localhost', 'root', '')or die("Impossible de se connecter : " . mysql_error());  
+mysql_select_db ('recettes', $base) ;
+$recette = mysql_fetch_array(mysql_query('SELECT NOM_RECETTE FROM RECETTE WHERE NUMERO_RECETTE='.$recette.';'));
+$recette = $recette[0];
+mysql_close();
+
 ?>
 
 <html>
@@ -152,14 +158,14 @@ $recette=$_GET['titi'];
  <li>$donnees[0]</li>
  </ul>";
 
- echo "<a href=listemodifs.php?titi=$recette&toto=1>Voir la liste des modifications</a></br></br>";
+ echo "<a href=listemodifs.php?titi=$num_rec>Voir la liste des modifications</a></br></br>";
 
  $avg_note=mysql_fetch_array(mysql_query('SELECT AVG(n.VALEUR_NOTE) FROM note n WHERE n.NUMERO_RECETTE='.$num_rec.';'));
  $votant=mysql_fetch_array(mysql_query('SELECT count(*) FROM NOTE WHERE NUMERO_RECETTE='.$num_rec.';'));
  if ($votant[0])
-   echo "Note moyenne : $avg_note[0] (Parmis $votant[0] votes)</br><a href=noterrecette.php?toto=$recette&titi=$num_rec>Notez la recette !</a></br></br>";
+   echo "Note moyenne : $avg_note[0] (Parmis $votant[0] votes)</br><a href=noterrecette.php?titi=$num_rec>Notez la recette !</a></br></br>";
  else
-   echo "Pas de note pour cette recette ! <a href=noterrecette.php?toto=$recette&titi=$num_rec>Notez la recette !</a></br></br>";
+   echo "Pas de note pour cette recette ! <a href=noterrecette.php?titi=$num_rec>Notez la recette !</a></br></br>";
 
  $sql5 = 'SELECT I.PSEUDO, C.DESCRIPTION_COMMENTAIRE FROM INTERNAUTE I, COMMENTAIRE C WHERE C.NUMERO_RECETTE='.$num_rec.' AND I.NUMERO_INTERNAUTE=C.NUMERO_INTERNAUTE;';
  $reponse = mysql_query ($sql5) or die ('Erreur SQL !'.$sql5.'<br/>'.mysql_error());
@@ -173,19 +179,19 @@ $recette=$_GET['titi'];
      <li>$donnees[0] : $donnees[1]</li>
      </ul>";
    }
-   echo "<a href=commenterrecette.php?toto=$recette&titi=$num_rec>Donnez le votre !</a>";
+   echo "<a href=commenterrecette.php?titi=$num_rec>Donnez le votre !</a>";
  } else {
-  echo "Pas de commentaires ! <a href=commenterrecette.php?toto=$recette&titi=$num_rec>Donnez le votre !</a>";
+  echo "Pas de commentaires ! <a href=commenterrecette.php?titi=$num_rec>Donnez le votre !</a>";
 }
 mysql_close();
 
 }
 ?> </br> </br>
 <form name="accueil" method="post" action="">
-  <input type="submit" name="aller_acceuil" value="Accueil"/>   
+  <input type="submit" name="aller_accueil" value="Accueil"/>   
 </form>
 <?php
-if (isset ($_POST['aller_acceuil'])){
+if (isset ($_POST['aller_accueil'])){
   header("Location: index_client.html");
   exit(); 
 }

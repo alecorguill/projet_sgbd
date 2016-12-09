@@ -6,11 +6,10 @@
   <title>Les recettes gourmandes - Commenter</title>
 </head>
 <body>
-  <?php $name=$_GET['toto'];
-  $cur_nb=$_GET['titi'];
+  <?php $cur_nb=$_GET['titi'];
   $pseudo=$_SESSION['pseudo'];
   $id=$_SESSION['id'];?>
-  <h1>Commentaire de la recette <?php echo$name;?></h1>
+  <h1>Commentaire de la recette</h1>
 
   <form name="add_recette" method="post" action="">
   Commentaire : <input type="text" name="COMMENTAIRE_r"/> <br/>
