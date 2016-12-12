@@ -68,22 +68,23 @@ $reponse = mysql_query ($sql) or die ('Erreur SQL !'.$sql.'<br/>'.mysql_error())
     <th>Nom ingrédient</th>
     <th>Note</th>        
   </tr>
-  <?php $i = 1;
-  while($donnees = mysql_fetch_array($reponse))
-  {
-    ?>
-    <tr>
-      <th><?php echo $i;?></th>
-      <th><?php echo $donnees[0];?></th>
-      <th><?php echo $donnees[1];?></th>
-    </tr>
+</br>
+<?php $i = 1;
+while($donnees = mysql_fetch_array($reponse))
+{
+  ?>
+  <tr>
+    <th><?php echo $i;?></th>
+    <th><?php echo $donnees[0];?></th>
+    <th><?php echo $donnees[1];?></th>
+  </tr>
 
-    <?php
-    $i++;}
-    ?>
-  </table></br>
+  <?php
+  $i++;}
+  ?>
+</table></br>
 
-  <?php  mysql_close(); ?>
+<?php  mysql_close(); ?>
 </div>
 </body>
 </html>
