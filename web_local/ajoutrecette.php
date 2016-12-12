@@ -27,7 +27,7 @@
 
 				include('seconnecter.php');
 
-				$nb_sql = 'SELECT MAX(NUMERO_RECETTE) FROM recette;';
+				$nb_sql = 'SELECT MAX(NUMERO_RECETTE) FROM RECETTE;';
 				$result = mysql_query($nb_sql);
 				if (!$result) {
 					die('Requête invalide : ' . mysql_error());
@@ -40,7 +40,7 @@
 
 	 //Affectation des valeurs donner par le client
 				$nom=mysql_real_escape_string($_POST['NOM_RECETTE']);
-		        $nb_sql = 'SELECT NUMERO_recette FROM recette where NOM_recette="'.$nom.'";';
+		        $nb_sql = 'SELECT NUMERO_recette FROM RECETTE where NOM_recette="'.$nom.'";';
 		        $result = mysql_query($nb_sql);
 		        if(mysql_num_rows($result) > 0){
 		        	echo("cette recette existe deja");
