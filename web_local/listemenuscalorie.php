@@ -17,8 +17,7 @@
 
   if (isset ($_POST['consulter_cal'])){
 
-    $base = @mysql_connect ('localhost', 'root', '')or die("Impossible de se connecter : " . mysql_error());  
-    mysql_select_db ('recettes', $base) ;
+	include('seconnecter.php');
 
     $calorie = $_POST['calorie'];
 

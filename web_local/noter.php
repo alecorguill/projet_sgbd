@@ -22,7 +22,7 @@
 
      $modif = $_POST['NOM_note_RECETTE'];
 
-     $nb_sql = 'SELECT NUMERO_RECETTE FROM recette where NOM_RECETTE="'.$modif.'";';
+     $nb_sql = 'SELECT NUMERO_RECETTE FROM RECETTE where NOM_RECETTE="'.$modif.'";';
      $result = mysql_query($nb_sql);
 
      $cur_nb = mysql_fetch_array($result);

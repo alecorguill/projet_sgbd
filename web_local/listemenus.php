@@ -20,14 +20,14 @@
 
       $menu = mysql_real_escape_string($_POST['consult_menu']);
 
-      $sql = mysql_query('SELECT * from menu where NOM_MENU="'.$menu.'";');
+      $sql = mysql_query('SELECT * from MENU where NOM_MENU="'.$menu.'";');
       $sql=mysql_fetch_array($sql);
 
       if (!$sql[0]) {
         die('Ce menu n\'existe pas');
       }
 
-      $id = mysql_query('SELECT PSEUDO FROM internaute where NUMERO_INTERNAUTE = '.$sql[2].';');
+      $id = mysql_query('SELECT PSEUDO FROM INTERNAUTE where NUMERO_INTERNAUTE = '.$sql[2].';');
       $id = mysql_fetch_array($id);
 
       $num_menu = $sql[0];
