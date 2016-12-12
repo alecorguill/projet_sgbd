@@ -10,6 +10,7 @@ mysql_close();
 
 <html>
 <head>
+  <meta charset="UTF-8">
   <title>Les recettes gourmandes</title>
 </head>
 <body>
