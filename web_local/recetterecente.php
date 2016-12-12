@@ -10,18 +10,20 @@
     <?php
     include('seconnecter.php');
     $sql = 'SELECT
+    NOM_CATEGORIE,
     COUNT(*) AS NOMBRE
     FROM
     RECETTE R,
     APPARTIENT A,
     CATEGORIE C
     WHERE
-    R.NUMERO_RECETTE = A.NUMERO_RECETTE AND A.NUMERO_CATEGORIE = C.NUMERO_CATEGORIE AND R.DATE_CREATION_RECETTE > 2016 -01 -01;';
+    R.NUMERO_RECETTE = A.NUMERO_RECETTE AND A.NUMERO_CATEGORIE = C.NUMERO_CATEGORIE AND R.DATE_CREATION_RECETTE > 2016-01-01;';
     $reponse = mysql_query ($sql) or die ('Erreur SQL !'.$sql.'<br/>'.mysql_error());
     ?>   
     <table>
       <tr>
         <th>Nombre de recettes</th>
+        <th>Nom de la catégorie</th>
       </tr>
       <?php
       while($donnees = mysql_fetch_array($reponse))
@@ -29,6 +31,7 @@
         ?>
         <tr>
           <th><?php echo $donnees[0];?></th>
+          <th><?php echo $donnees[1];?></th>
         </tr>
 
         <?php
