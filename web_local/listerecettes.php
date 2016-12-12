@@ -10,6 +10,7 @@ mysql_close();
 
 <html>
 <head>
+  <meta charset="UTF-8">
   <title>Les recettes gourmandes</title>
 </head>
 <body>
@@ -37,9 +38,6 @@ mysql_close();
         die('Cette recette n\'existe pas');
       }
 
-      $id = mysql_query('SELECT PSEUDO FROM INTERNAUTE where NUMERO_INTERNAUTE = '.$sql[0].';');
-      $id = mysql_fetch_array($id);
-
       $num_rec = mysql_query('SELECT NUMERO_RECETTE FROM RECETTE WHERE NOM_RECETTE = "'.$sql[1].'";') or die ('Erreur SQL !'.$num_rec.'<br/>'.mysql_error());
       if(mysql_num_rows($num_rec) == 0){
         $num_rec=0;
@@ -49,6 +47,9 @@ mysql_close();
       }
       $sql[1] = strtolower($sql[1]);
       $sql[1][0] = strtoupper($sql[1][0]);
+
+      $id = mysql_query('SELECT PSEUDO FROM INTERNAUTE I, SOUMISSION S, MODIFICATION M, ACTION A where S.NUMERO_RECETTE = '.$sql[0].' AND S.NUMERO_MODIFICATION=M.NUMERO_MODIFICATION AND M.NUMERO_MODIFICATION=A.NUMERO_MODIFICATION AND A.NUMERO_INTERNAUTE=I.NUMERO_INTERNAUTE;');
+      $id = mysql_fetch_array($id);
 
       echo "La recette $sql[1] a été ajouté par l'internaute $id[0] le $sql[2]. </br></br>";
 
