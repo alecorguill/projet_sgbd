@@ -36,7 +36,7 @@
         die('Cette recette n\'existe pas');
       }
 
-      $id = mysql_query('SELECT PSEUDO FROM internaute where NUMERO_INTERNAUTE = '.$sql[0].';');
+      $id = mysql_query('SELECT PSEUDO FROM INTERNAUTE where NUMERO_INTERNAUTE = '.$sql[0].';');
       $id = mysql_fetch_array($id);
 
       $num_rec = mysql_query('SELECT NUMERO_RECETTE FROM RECETTE WHERE NOM_RECETTE = "'.$sql[1].'";') or die ('Erreur SQL !'.$num_rec.'<br/>'.mysql_error());

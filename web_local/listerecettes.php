@@ -37,7 +37,7 @@ mysql_close();
         die('Cette recette n\'existe pas');
       }
 
-      $id = mysql_query('SELECT PSEUDO FROM internaute where NUMERO_INTERNAUTE = '.$sql[0].';');
+      $id = mysql_query('SELECT PSEUDO FROM INTERNAUTE where NUMERO_INTERNAUTE = '.$sql[0].';');
       $id = mysql_fetch_array($id);
 
       $num_rec = mysql_query('SELECT NUMERO_RECETTE FROM RECETTE WHERE NOM_RECETTE = "'.$sql[1].'";') or die ('Erreur SQL !'.$num_rec.'<br/>'.mysql_error());
@@ -158,7 +158,7 @@ mysql_close();
 
  echo "<a href=listemodifs.php?titi=$num_rec>Voir la liste des modifications</a></br></br>";
 
- $avg_note=mysql_fetch_array(mysql_query('SELECT AVG(n.VALEUR_NOTE) FROM note n WHERE n.NUMERO_RECETTE='.$num_rec.';'));
+ $avg_note=mysql_fetch_array(mysql_query('SELECT AVG(n.VALEUR_NOTE) FROM NOTE n WHERE n.NUMERO_RECETTE='.$num_rec.';'));
  $votant=mysql_fetch_array(mysql_query('SELECT count(*) FROM NOTE WHERE NUMERO_RECETTE='.$num_rec.';'));
  if ($votant[0])
    echo "Note moyenne : $avg_note[0] (Parmis $votant[0] votes)</br><a href=noterrecette.php?titi=$num_rec>Notez la recette !</a></br></br>";

@@ -23,20 +23,20 @@
 			//Sinon on regarde si le pseudo existe
 			include('seconnecter.php');
 			$pseudo=mysql_real_escape_string($pseudo);
-			$pseudo_sql = 'SELECT NUMERO_INTERNAUTE FROM internaute where pseudo="'.$pseudo.'";';
+			$pseudo_sql = 'SELECT NUMERO_INTERNAUTE FROM INTERNAUTE where pseudo="'.$pseudo.'";';
 			$result = mysql_query($pseudo_sql) or die ('Erreur SQL !'.$sql.'<br />'.mysql_error());
 			//Si le pseudo n'existe pas on le rajoute
 			if(mysql_num_rows($result) == 0 ){
-				$max_nb_internaute = 'SELECT MAX(NUMERO_internaute) FROM internaute;';
+				$max_nb_internaute = 'SELECT MAX(NUMERO_internaute) FROM INTERNAUTE;';
 				$max_nb_internaute = mysql_query($max_nb_internaute);
 				$cur_nb = mysql_fetch_array($max_nb_internaute);
 				$cur_nb[0]++;
-				$sql = 'insert into internaute(NUMERO_INTERNAUTE,pseudo) values ('.$cur_nb[0].',"'.$pseudo.'");';
+				$sql = 'insert into INTERNAUTE(NUMERO_INTERNAUTE,pseudo) values ('.$cur_nb[0].',"'.$pseudo.'");';
 				mysql_query ($sql) or die ('Erreur SQL !'.$sql.'<br />'.mysql_error());
 			}
 			//On redirige le client vers la page client
 			$_SESSION['pseudo']=$pseudo;
-			$nb_internaute = 'SELECT NUMERO_internaute FROM internaute where pseudo="'.$pseudo.'";';
+			$nb_internaute = 'SELECT NUMERO_internaute FROM INTERNAUTE where pseudo="'.$pseudo.'";';
 			$nb_internaute = mysql_query($nb_internaute);
 			$cur_nb = mysql_fetch_array($nb_internaute);
 			$_SESSION['id']    =$cur_nb[0];
