@@ -61,7 +61,7 @@
 				$nb_recette        = 'SELECT NUMERO_RECETTE FROM RECETTE where NOM_RECETTE="'.$nom_r.'"';
 				$res_cate          = mysql_fetch_array(mysql_query($nb_cate)) or die ('Erreur SQL !'.$nb_cate.'<br/>'.mysql_error());
 				$res_recette       = mysql_fetch_array(mysql_query($nb_recette)) or die ('Erreur SQL !'.$nb_recette.'<br/>'.mysql_error());
-				$categorie_of_recette = 'SELECT * from APPARTIENT where NUMERO_RECETTE='.$res_recette[0].'';
+				$categorie_of_recette = 'SELECT * from APPARTIENT where NUMERO_RECETTE='.$res_recette[0].' and NUMERO_CATEGORIE='.$res_cate[0].'';
 				$res_categorie_of_recette        = mysql_query($categorie_of_recette) or die ('Erreur SQL !'.$categorie_recette.'<br/>'.mysql_error());
 				if((mysql_num_rows($res_categorie_of_recette) > 0)){
 					echo('Cette recette est deja dans cette catégorie');

@@ -3,6 +3,7 @@
 <html>
 <head>
   <title>Les recettes gourmandes</title>
+  <meta charset="UTF-8">
 </head>
 <body>
   <h1>Les recettes gourmandes</h1>

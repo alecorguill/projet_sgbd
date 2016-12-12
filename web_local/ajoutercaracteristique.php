@@ -33,7 +33,7 @@
 
 
 		//On verifie que l'ingrédient existe
-			$nb_sql = 'SELECT NUMERO_INGREDIENT FROM ingredient where NOM_INGREDIENT="'.$nom_ingredient_c.'";';
+			$nb_sql = 'SELECT NUMERO_INGREDIENT FROM INGREDIENT where NOM_INGREDIENT="'.$nom_ingredient_c.'";';
 			$result = mysql_query($nb_sql) or die ('Erreur SQL !'.$nb_sql.'<br/>'.mysql_error());
 			$tab = mysql_fetch_array($result);
 			if (!$tab[0]) {
@@ -41,28 +41,28 @@
 			}
 			else{
 
-				$nb_sql = 'SELECT NUMERO_CARACTERISTIQUE FROM caracteristique_nutritionnelle where NOM_CARACTERISTIQUE="'.$nom_carac.'";';
+				$nb_sql = 'SELECT NUMERO_CARACTERISTIQUE FROM CARACTERISTIQUE_NUTRITIONNELLE where NOM_CARACTERISTIQUE="'.$nom_carac.'";';
 				$result = mysql_query($nb_sql);
 	//On ajoute la caractéristique si elle n'existe pas
 				if(mysql_num_rows($result) == 0)
 				{
-					$max_nb_carac = 'SELECT MAX(NUMERO_CARACTERISTIQUE) FROM caracteristique_nutritionnelle;';
+					$max_nb_carac = 'SELECT MAX(NUMERO_CARACTERISTIQUE) FROM CARACTERISTIQUE_NUTRITIONNELLE;';
 					$result = mysql_query($max_nb_carac);
 					$cur_nb = mysql_fetch_array($result);
 					$cur_nb[0]++;
 	//Ajout de la caractéristique
-					$sql = 'insert into caracteristique_nutritionnelle(numero_caracteristique,nom_caracteristique) values('.$cur_nb[0].',"'.$nom_carac.'")';
+					$sql = 'insert into CARACTERISTIQUE_NUTRITIONNELLE(numero_caracteristique,nom_caracteristique) values('.$cur_nb[0].',"'.$nom_carac.'")';
 					mysql_query ($sql) or die ('Erreur SQL !'.$sql.'<br/>'.mysql_error());
 				}
 
 //Ajout dans la table assosciation definition
 //On recupere les eux clef etrangères
-				$nb_carac = 'SELECT NUMERO_CARACTERISTIQUE FROM caracteristique_nutritionnelle where NOM_CARACTERISTIQUE="'.$nom_carac.'";';
-				$nb_ingre = 'SELECT NUMERO_ingredient FROM ingredient where NOM_ingredient="'.$nom_ingredient_c.'";';
+				$nb_carac = 'SELECT NUMERO_CARACTERISTIQUE FROM CARACTERISTIQUE_NUTRITIONNELLE where NOM_CARACTERISTIQUE="'.$nom_carac.'";';
+				$nb_ingre = 'SELECT NUMERO_ingredient FROM INGREDIENT where NOM_ingredient="'.$nom_ingredient_c.'";';
 				$res_carac = mysql_fetch_array(mysql_query($nb_carac)) or die ('Erreur SQL !'.$nb_carac.'<br/>'.mysql_error());
 				$res_ingre = mysql_fetch_array(mysql_query($nb_ingre)) or die ('Erreur SQL !'.$nb_ingre.'<br/>'.mysql_error());
 				$valeur_carac= (int) $_POST['VALEUR_CARAC'];
-				$sql = 'insert into definition(numero_ingredient,numero_caracteristique,valeur) values('.$res_ingre[0].','.$res_carac[0].','.$valeur_carac.');';
+				$sql = 'insert into DEFINITION(numero_ingredient,numero_caracteristique,valeur) values('.$res_ingre[0].','.$res_carac[0].','.$valeur_carac.');';
 				$result = mysql_query($sql) or die ('Erreur SQL !'.$sql.'<br/>'.mysql_error());
 
 			}

@@ -2,6 +2,7 @@
 <html>
 <head>
 	<title>Les recettes gourmandes - Inscription</title>
+	<meta charset="UTF-8">
 </head>
 <body>
 	<h1>Les recettes gourmandes</h1>

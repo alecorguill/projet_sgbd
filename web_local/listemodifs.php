@@ -1,7 +1,6 @@
 <?php session_start();
   $ok=$_GET['titi'];
-  $base = @mysql_connect ('localhost', 'root', '')or die("Impossible de se connecter : " . mysql_error());  
-      mysql_select_db ('recettes', $base) ;
+include('seconnecter.php');
   $recette = mysql_fetch_array(mysql_query('SELECT NOM_RECETTE FROM RECETTE WHERE NUMERO_RECETTE='.$ok.';'));
   $recette = $recette[0];
   mysql_close();
@@ -10,6 +9,7 @@
 <html>
 <head>
   <title>Les recettes gourmandes</title>
+  <meta charset="UTF-8">
 </head>
 <body>
   <h1>Les recettes gourmandes</h1>
