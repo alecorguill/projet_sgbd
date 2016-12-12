@@ -34,14 +34,14 @@
 
 
 		//On verifie que la recette existe
-			$nb_sql = 'SELECT NUMERO_recette FROM recette where NOM_recette="'.$nom_r.'";';
+			$nb_sql = 'SELECT NUMERO_RECETTE FROM RECETTE where NOM_RECETTE="'.$nom_r.'";';
 			$result = mysql_query($nb_sql) or die ('Erreur SQL !'.$nb_sql.'<br/>'.mysql_error());
 			if ((mysql_num_rows($result) == 0)) {
 				die('Cette recette n\'existe pas');
 			}
 			else{
 
-				$nb_sql = 'SELECT NUMERO_categorie FROM categorie where NOM_categorie="'.$nom_c.'";';
+				$nb_sql = 'SELECT NUMERO_CATEGORIE FROM CATEGORIE where NOM_CATEGORIE="'.$nom_c.'";';
 				$result = mysql_query($nb_sql);
 	//On ajoute la categorie si elle n'existe pas
 				if(mysql_num_rows($result) == 0)
@@ -51,24 +51,24 @@
 					$cur_nb = mysql_fetch_array($result);
 					$cur_nb[0]++;
 	//Ajout de la caractéristique
-					$sql = 'insert into categorie(NUMERO_categorie, numero_internaute, nom_categorie) values('.$cur_nb[0].', '.$numero_internaute.', "'.$nom_c.'")';
+					$sql = 'insert into CATEGORIE(NUMERO_CATEGORIE, NUMERO_INTERNAUTE, NOM_CATEGORIE) values('.$cur_nb[0].', '.$numero_internaute.', "'.$nom_c.'")';
 					mysql_query ($sql) or die ('Erreur SQL !'.$sql.'<br/>'.mysql_error());
 				}
 
 //Ajout dans la table assosciation appartient
 //On recupere les eux clef etrangères
-				$nb_cate           = 'SELECT NUMERO_categorie FROM categorie where NOM_categorie="'.$nom_c.'";';
-				$nb_recette        = 'SELECT NUMERO_recette FROM recette where NOM_recette="'.$nom_r.'"';
+				$nb_cate           = 'SELECT NUMERO_CATEGORIE FROM CATEGORIE where NOM_CATEGORIE="'.$nom_c.'";';
+				$nb_recette        = 'SELECT NUMERO_RECETTE FROM RECETTE where NOM_RECETTE="'.$nom_r.'"';
 				$res_cate          = mysql_fetch_array(mysql_query($nb_cate)) or die ('Erreur SQL !'.$nb_cate.'<br/>'.mysql_error());
 				$res_recette       = mysql_fetch_array(mysql_query($nb_recette)) or die ('Erreur SQL !'.$nb_recette.'<br/>'.mysql_error());
-				$categorie_of_recette = 'SELECT * from appartient where numero_recette='.$res_recette[0].'';
+				$categorie_of_recette = 'SELECT * from APPARTIENT where NUMERO_RECETTE='.$res_recette[0].'';
 				$res_categorie_of_recette        = mysql_query($categorie_of_recette) or die ('Erreur SQL !'.$categorie_recette.'<br/>'.mysql_error());
 				if((mysql_num_rows($res_categorie_of_recette) > 0)){
 					echo('Cette recette est deja dans cette catégorie');
 					exit();
 				}
 				else{
-				$sql               = 'insert into appartient(numero_recette,numero_categorie) values('.$res_recette[0].','.$res_cate[0].');';
+				$sql               = 'insert into APPARTIENT(numero_recette,numero_categorie) values('.$res_recette[0].','.$res_cate[0].');';
 				$result            = mysql_query($sql) or die ('Erreur SQL !'.$sql.'<br/>'.mysql_error());
 				}
 			}

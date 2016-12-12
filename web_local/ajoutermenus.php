@@ -25,7 +25,7 @@
 					die('votre menu ne contient aucune recette');
 				}
 				else{
-				$nb_sql = 'SELECT MAX(Numero_menu) FROM menu;';
+				$nb_sql = 'SELECT MAX(NUMERO_MENU) FROM MENU;';
 				$result = mysql_query($nb_sql);
 				if (!$result) {
 					die('Requête invalide : ' . mysql_error());
@@ -38,19 +38,19 @@
 	 //Affectation des valeurs donner par le client
 				$nom=mysql_real_escape_string($_POST['NOM_MENUS']);
 				$numero_internaute=$_SESSION['id'];
-		        $nb_sql = 'SELECT NUMERO_menu FROM menu where NOM_MENU="'.$nom.'" and numero_internaute='.$numero_internaute.';';
+		        $nb_sql = 'SELECT NUMERO_MENU FROM MENU where NOM_MENU="'.$nom.'" and NUMERO_INTERNAUTE='.$numero_internaute.';';
 		        $result = mysql_query($nb_sql) or die ('Erreur SQL !'.$nb_sql.'<br/>'.mysql_error());
 		        if(mysql_num_rows($result) > 0){
 		        	echo("Vous avez deja ajouté ce menu");
 		        	exit();
 		        }
 
-				$max_nb_menu = 'SELECT MAX(NUMERO_menu) FROM menu;';
+				$max_nb_menu = 'SELECT MAX(NUMERO_MENU) FROM MENU;';
 				$result = mysql_query($max_nb_menu);
 				$cur_nb = mysql_fetch_array($result);
 				$cur_nb[0]++;
 	 //Ajout de la recette
-				$sql = 'insert into menu(numero_menu, nom_menu, numero_internaute) values ('.$cur_nb[0].', "'.$nom.'", '.$numero_internaute.')';
+				$sql = 'insert into MENU(NUMERO_MENU, NOM_MENU, NUMERO_INTERNAUTE) values ('.$cur_nb[0].', "'.$nom.'", '.$numero_internaute.')';
 				mysql_query ($sql) or die ('Erreur SQL !'.$sql.'<br/>'.mysql_error());
 				header("Location: ajouterrecettemenu.php?nb_rec=$nb_rec&nom_menu=$nom");
 				mysql_close();

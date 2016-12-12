@@ -32,7 +32,7 @@
 
 		//Ajout de l'ingredient
 			$nom_ingredient=mysql_real_escape_string($_POST['NOM_INGREDIENT']);
-			$nb_sql = 'SELECT NUMERO_INGREDIENT FROM ingredient where NOM_INGREDIENT="'.$nom_ingredient.'";';
+			$nb_sql = 'SELECT NUMERO_INGREDIENT FROM INGREDIENT where NOM_INGREDIENT="'.$nom_ingredient.'";';
 			$result = mysql_query($nb_sql);
 			if(mysql_num_rows($result) == 0)
 			{
@@ -42,7 +42,7 @@
 				$cur_nb = mysql_fetch_array($result);
 				$cur_nb[0]++;
 		//Ajout de l'ingredient
-				$sql = 'insert into ingredient(numero_ingredient,nom_ingredient) values('.$cur_nb[0].',"'.$nom_ingredient.'")';
+				$sql = 'insert into INGREDIENT(NUMERO_INGREDIENT,NOM_INGREDIENT) values('.$cur_nb[0].',"'.$nom_ingredient.'")';
 				mysql_query ($sql) or die ('Erreur SQL !'.$sql.'<br/>'.mysql_error());
 			}
 			else {

@@ -27,17 +27,17 @@
 			include('seconnecter.php');
 			$numero_internaute=$_SESSION['id'];
 			$nom_categorie=mysql_real_escape_string($_POST['NOM_CATEGORIE']);
-			$nb_sql = 'SELECT NUMERO_categorie FROM categorie where NOM_categorie="'.$nom_categorie.'" and numero_internaute='.$numero_internaute.';';
+			$nb_sql = 'SELECT NUMERO_CATEGORIE FROM CATEGORIE where NOM_CATEGORIE="'.$nom_categorie.'" and NUMERO_INTERNAUTE='.$numero_internaute.';';
 			$result = mysql_query($nb_sql);
 			if(mysql_num_rows($result) == 0)
 			{
 
-				$max_nb_categorie = 'SELECT MAX(NUMERO_categorie) FROM categorie;';
+				$max_nb_categorie = 'SELECT MAX(NUMERO_CATEGORIE) FROM CATEGORIE;';
 				$result = mysql_query($max_nb_categorie);
 				$cur_nb = mysql_fetch_array($result);
 				$cur_nb[0]++;
 		//Ajout de la categorie
-				$sql = 'insert into categorie(numero_categorie,numero_internaute,nom_categorie) values('.$cur_nb[0].', '.$numero_internaute.', "'.$nom_categorie.'")';
+				$sql = 'insert into CATEGORIE(NUMERO_CATEGORIE,NUMERO_INTERNAUTE,NOM_CATEGORIE) values('.$cur_nb[0].', '.$numero_internaute.', "'.$nom_categorie.'")';
 				mysql_query ($sql) or die ('Erreur SQL !'.$sql.'<br/>'.mysql_error());
 			}
 			else {
