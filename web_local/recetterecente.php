@@ -17,7 +17,7 @@
     APPARTIENT A,
     CATEGORIE C
     WHERE
-    R.NUMERO_RECETTE = A.NUMERO_RECETTE AND A.NUMERO_CATEGORIE = C.NUMERO_CATEGORIE AND R.DATE_CREATION_RECETTE > 2016-01-01;';
+    R.NUMERO_RECETTE = A.NUMERO_RECETTE AND A.NUMERO_CATEGORIE = C.NUMERO_CATEGORIE AND R.DATE_CREATION_RECETTE > 2016-01-01 GROUP BY C.NUMERO_CATEGORIE;';
     $reponse = mysql_query ($sql) or die ('Erreur SQL !'.$sql.'<br/>'.mysql_error());
     ?>   
     <table>
@@ -30,8 +30,8 @@
       {
         ?>
         <tr>
-          <th><?php echo $donnees[0];?></th>
           <th><?php echo $donnees[1];?></th>
+          <th><?php echo $donnees[0];?></th>
         </tr>
 
         <?php
